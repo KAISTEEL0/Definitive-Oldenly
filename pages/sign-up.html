@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oldenly — Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-body auth-body--signup">
+
+    <header class="site-header site-header--auth site-header--signup">
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav__left">
+                <a href="../index.html" class="nav__brand">
+                    <img class="nav__logo" src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
+                    <span class="nav__name">Oldenly</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav__list" id="nav-menu">
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#volunteer">Contact us</a></li>
+                    <li><a href="../index.html#about">About us</a></li>
+                </ul>
+            </div>
+            <div class="nav__right">
+                <a href="sign-in.html" class="nav__signin">Sign in</a>
+                <a href="sign-up.html" class="nav__login is-active">Sign up</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-container">
+            <div class="auth-form-side">
+                <h1 class="auth-title">Sign up</h1>
+                <p class="auth-subtitle">Create your Oldenly account</p>
+
+                <form class="auth-form" onsubmit="return false;">
+                    <div class="auth-field">
+                        <label class="auth-label" for="signup-username">Username</label>
+                        <input class="auth-input" id="signup-username" type="text" placeholder="Choose a username" autocomplete="username">
+                    </div>
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="signup-email">Email</label>
+                        <input class="auth-input" id="signup-email" type="email" placeholder="Enter your email" autocomplete="email">
+                    </div>
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="signup-password">Password</label>
+                        <input class="auth-input" id="signup-password" type="password" placeholder="Create a password" autocomplete="new-password">
+                    </div>
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="signup-confirm">Confirm Password</label>
+                        <input class="auth-input" id="signup-confirm" type="password" placeholder="Confirm your password" autocomplete="new-password">
+                    </div>
+
+                    <button class="auth-btn" type="submit">Register</button>
+                </form>
+
+                <div class="auth-links">
+                    <p>Already have an account? <a href="sign-in.html">Sign in</a></p>
+                </div>
+            </div>
+
+            <div class="auth-image-side">
+                <img src="../assets/images/Designer.png" alt="Oldenly character">
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__wrap">
+            <div class="site-footer__brand">
+                <a href="../index.html" class="site-footer__logo-link">
+                    <img src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
+                    <span>Oldenly</span>
+                </a>
+                <p class="site-footer__tagline">Honoring every story. Honoring every voice.</p>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Explore</h3>
+                <ul class="site-footer__list">
+                    <li><a href="../index.html#home">Home</a></li>
+                    <li><a href="../index.html#categories">Stories</a></li>
+                    <li><a href="../index.html#why">How to use</a></li>
+                    <li><a href="../index.html#about">About us</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Connect</h3>
+                <ul class="site-footer__list">
+                    <li><a href="../index.html#volunteer">Contact us</a></li>
+                    <li><a href="../index.html#volunteer">Volunteer</a></li>
+                    <li><a href="sign-in.html">Sign in</a></li>
+                    <li><a href="sign-up.html">Sign up</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="site-footer__bottom">
+            <p>&copy; 2026 Oldenly. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/site.js"></script>
+
+</body>
+</html>
