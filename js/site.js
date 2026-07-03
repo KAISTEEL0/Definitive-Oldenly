@@ -189,5 +189,97 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    var howtoSearch = document.querySelector('.howto-search');
+    if (howtoSearch) {
+        var howtoCards = Array.prototype.slice.call(document.querySelectorAll('.howto-card'));
+        howtoSearch.addEventListener('input', function () {
+            var query = this.value.trim().toLowerCase();
+            howtoCards.forEach(function (card) {
+                var text = card.textContent.toLowerCase();
+                var matches = text.indexOf(query) !== -1;
+                card.style.display = matches ? '' : 'none';
+            });
+        });
+    }
+
+    document.querySelectorAll('.accordion-item .accordion-toggle').forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
+            var item = toggle.closest('.accordion-item');
+            var panel = item ? item.querySelector('.accordion-panel') : null;
+            var isOpen = item && item.classList.contains('open');
+
+            document.querySelectorAll('.accordion-item').forEach(function (otherItem) {
+                otherItem.classList.remove('open');
+                var otherPanel = otherItem.querySelector('.accordion-panel');
+                if (otherPanel) otherPanel.style.maxHeight = '0px';
+                var otherToggle = otherItem.querySelector('.accordion-toggle');
+                if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
+            });
+
+            if (item && !isOpen) {
+                item.classList.add('open');
+                if (panel) panel.style.maxHeight = panel.scrollHeight + 'px';
+                toggle.setAttribute('aria-expanded', 'true');
+            } else if (item) {
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+
+    document.querySelectorAll('.accordion-item').forEach(function (item) {
+        var panel = item.querySelector('.accordion-panel');
+        if (panel) panel.style.maxHeight = item.classList.contains('open') ? panel.scrollHeight + 'px' : '0px';
+    });
+
+    var howtoFile = document.getElementById('howto-file');
+    var fileInfo = document.querySelector('.file-info');
+    var uploadBar = document.querySelector('.upload-bar');
+    var uploadPreview = document.querySelector('.upload-preview');
+    if (howtoFile && fileInfo && uploadBar && uploadPreview) {
+        howtoFile.addEventListener('change', function () {
+            var file = this.files && this.files[0];
+            if (!file) {
+                fileInfo.textContent = 'No file selected yet.';
+                uploadBar.style.width = '0%';
+                uploadPreview.innerHTML = '';
+                return;
+            }
+
+            fileInfo.textContent = 'Selected: ' + file.name;
+            uploadBar.style.width = '100%';
+
+            if (file.type.startsWith('image/')) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    uploadPreview.innerHTML = '<img src="' + event.target.result + '" alt="Selected preview" style="max-width: 100%; border-radius: 12px;">';
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('audio/')) {
+                var url = URL.createObjectURL(file);
+                uploadPreview.innerHTML = '<audio controls src="' + url + '"></audio>';
+            } else {
+                uploadPreview.innerHTML = '<p style="color:#4a2d5e;">File ready to send.</p>';
+            }
+        });
+    }
+
+    var suggestionForm = document.querySelector('.suggestion-form');
+    if (suggestionForm) {
+        var suggestionFeedback = suggestionForm.querySelector('.contact-form__feedback');
+        suggestionForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var message = suggestionForm.querySelector('#suggestion-message').value.trim();
+            if (!message) {
+                suggestionFeedback.textContent = 'Please write a short description of your issue.';
+                suggestionFeedback.style.color = '#b5175a';
+                return;
+            }
+
+            suggestionFeedback.textContent = 'Thanks! Your suggestion was received.';
+            suggestionFeedback.style.color = '#2d1b3d';
+            suggestionForm.reset();
+        });
+    }
+
     markActiveNavLink();
 });
