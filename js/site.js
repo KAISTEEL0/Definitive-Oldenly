@@ -137,4 +137,57 @@ document.addEventListener('DOMContentLoaded', function () {
             valuesObserver.observe(card);
         });
     }
+
+    var contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        var feedback = contactForm.querySelector('.contact-form__feedback');
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var name = contactForm.querySelector('#contact-name').value.trim();
+            var email = contactForm.querySelector('#contact-email').value.trim();
+            var subject = contactForm.querySelector('#contact-subject').value.trim();
+            var message = contactForm.querySelector('#contact-message').value.trim();
+
+            if (!name || !email || !subject || !message) {
+                feedback.textContent = 'Please fill in all fields.';
+                feedback.style.color = '#b5175a';
+                return;
+            }
+
+            feedback.textContent = 'Thanks! Your message has been sent. We will contact you soon.';
+            feedback.style.color = '#2d1b3d';
+            contactForm.reset();
+        });
+    }
+
+    function markActiveNavLink() {
+        var currentPath = window.location.pathname.split('/').pop();
+        if (!currentPath) {
+            currentPath = 'index.html';
+        }
+
+        var currentHash = window.location.hash || '#home';
+
+        document.querySelectorAll('.nav__list a').forEach(function (link) {
+            link.classList.remove('is-active');
+            var href = link.getAttribute('href');
+            if (!href) return;
+
+            if (href.indexOf('#') === 0 && (currentPath === 'index.html' || currentPath === '')) {
+                if (href === currentHash) {
+                    link.classList.add('is-active');
+                }
+                return;
+            }
+
+            var linkPath = href.split('/').pop();
+            if (!linkPath) return;
+
+            if (linkPath === currentPath) {
+                link.classList.add('is-active');
+            }
+        });
+    }
+
+    markActiveNavLink();
 });
