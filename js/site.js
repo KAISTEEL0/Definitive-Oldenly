@@ -1,4 +1,29 @@
 (function () {
+    var themeToggle = document.querySelector('.theme-toggle');
+    function applyTheme(isDark) {
+        document.body.classList.toggle('dark-theme', isDark);
+        if (themeToggle) {
+            var icon = themeToggle.querySelector('.theme-toggle__icon');
+            if (icon) {
+                icon.textContent = isDark ? '☀️' : '🌙';
+            }
+            themeToggle.setAttribute('aria-pressed', String(isDark));
+            themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+        localStorage.setItem('oldenly-theme', isDark ? 'dark' : 'light');
+    }
+
+    var savedTheme = localStorage.getItem('oldenly-theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var initialDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+    applyTheme(initialDark);
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+            applyTheme(!document.body.classList.contains('dark-theme'));
+        });
+    }
+
     var toggle = document.querySelector('.nav__toggle');
     var menu = document.getElementById('nav-menu');
 
