@@ -25,7 +25,7 @@
 body.dark-theme {
     --bg-body: linear-gradient(180deg, #17111f 0%, #22182d 35%, #120d18 100%);
     --bg-surface: #241c2f;
-    --bg-surface-soft2: #2f233b;
+    --bg-surface-soft: #2f233b;
     --text-main: #f7eaf4;
     --text-muted: #e8cfe4;
     --text-strong: #ffffff;
@@ -88,7 +88,7 @@ body.dark-theme .h-blob::after {
     background: var(--bg-surface);
 }
 body.dark-theme .phone__screen {
-    background: var(--bg-surface-soft2);
+    background: var(--bg-surface-soft);
 }
 body.dark-theme .hero__h,
 body.dark-theme .hero__sub,
@@ -139,7 +139,7 @@ body.dark-theme .auth-form-side,
 body.dark-theme .auth-image-side,
 body.dark-theme .howto-card,
 body.dark-theme .faq-item {
-    background: var(--bg-surface-soft2);
+    background: var(--bg-surface);
     box-shadow: 0 12px 40px var(--shadow);
 }
 body.dark-theme .vol__input,
@@ -150,7 +150,7 @@ body.dark-theme .contact-form__group input,
 body.dark-theme .contact-form__group textarea,
 body.dark-theme .howto-search,
 body.dark-theme .suggestion-form textarea {
-    background: var(--bg-surface-soft2);
+    background: var(--bg-surface-soft);
     color: var(--text-main);
     border-color: var(--border-soft);
 }
@@ -1051,7 +1051,7 @@ body.dark-theme .contact-form__submit:hover {
 .mission-vision__icon svg {
     width: 28px;
     height: 28px;
-    color: #2D1B3D;
+    color: #ccc4d2;
 }
 .mission-vision__icon--eye {
     background: #E8D9E8;
@@ -1397,7 +1397,9 @@ body.dark-theme .contact-form__submit:hover {
 .auth-body {
     background: linear-gradient(180deg, #f9eaf2 0%, #f3eefb 100%);
 }
+body.dark-theme .auth-body ,.auth-body--signup { background: linear-gradient(180deg, #2d1b3d 0%, #3d2b4d 100%); }
 .auth-body--signup { background: linear-gradient(180deg, #f6f2fb 0%, #efe9f6 100%); }
+
 
 .auth-main {
     flex: 1;
@@ -1433,6 +1435,7 @@ body.dark-theme .contact-form__submit:hover {
     margin-bottom: 10px;
     font-weight: 800;
 }
+body.dark-theme .auth-title { color: var(--text-main); }
 
 .auth-subtitle {
     font-size: 18px;
@@ -1449,6 +1452,8 @@ body.dark-theme .contact-form__submit:hover {
     color: #4a2d5e;
     margin-bottom: 8px;
 }
+
+body.dark-theme .auth-label { color: var(--text-secondary); }
 
 .auth-input {
     width: 100%;
@@ -1626,7 +1631,7 @@ body.dark-theme .howto-device {
 }
 .howto-screen { width: 320px; height: 220px; border-radius: 12px; overflow: hidden; background: linear-gradient(180deg,#f9eaf2, #f3eefb); }
 body.dark-theme .howto-screen {
-    background: var(--bg-surface-soft2);
+    background: var(--bg-surface-soft);
 }
 .howto-screen img { width: 100%; height: 100%; object-fit: cover; display:block; }
 .howto-badge { position: absolute; top: 14px; left: 14px; background: #2D1B3D; color: #fff; padding: 6px 12px; border-radius: 999px; font-weight:700; font-size:13px; }
@@ -1700,7 +1705,7 @@ body.dark-theme .accordion-toggle {
 
 .howto-search { width: 100%; padding: 12px 16px; border-radius: 999px; border: 2px solid rgba(210,180,200,0.18); background: rgba(210,230,215,0.35); color: #2d1b3d; font-size: 15px; }
 body.dark-theme .howto-search {
-    background: var(--bg-surface-soft2);
+    background: var(--bg-surface-soft);
     border-color: var(--border-soft);
     color: var(--text-main);
 }
