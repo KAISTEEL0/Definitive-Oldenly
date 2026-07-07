@@ -921,6 +921,49 @@ body.dark-theme .btn--outline:hover {
     .contact-form-wrap { padding: 32px 22px 28px; }
 }
 
+body.dark-theme.contact-page {
+    background: var(--bg-body);
+}
+body.dark-theme .contact-hero__eyebrow,
+body.dark-theme .contact-hero__title,
+body.dark-theme .contact-hero__text,
+body.dark-theme .contact-hero__details,
+body.dark-theme .contact-hero__card-top span,
+body.dark-theme .contact-hero__card-top h2,
+body.dark-theme .contact-hero__card p,
+body.dark-theme .contact-form-wrap h2,
+body.dark-theme .contact-form-wrap p,
+body.dark-theme .contact-form__group label,
+body.dark-theme .contact-form__feedback,
+body.dark-theme .contact-card h3,
+body.dark-theme .contact-card p {
+    color: var(--text-main);
+}
+body.dark-theme .contact-hero__text,
+body.dark-theme .contact-hero__card p,
+body.dark-theme .contact-form-wrap p,
+body.dark-theme .contact-card p {
+    color: var(--text-muted);
+}
+body.dark-theme .contact-hero__card {
+    border-color: var(--border-soft);
+}
+body.dark-theme .contact-spore {
+    background: rgba(247, 220, 232, .18);
+}
+body.dark-theme .contact-form__group input::placeholder,
+body.dark-theme .contact-form__group textarea::placeholder {
+    color: var(--text-muted);
+}
+body.dark-theme .contact-form__submit {
+    background: var(--accent);
+    color: #4b375d;
+}
+body.dark-theme .contact-form__submit:hover {
+    background: #4b375d;
+    color: var(--text-main);
+}
+
 /* ================================================
    SECCIÓN 6 — ABOUT US
    ================================================ */
@@ -1563,7 +1606,11 @@ body.dark-theme .values__icon {
    HOW TO USE PAGE
    ================================================ */
 .howto-page { background: linear-gradient(180deg,#fff7fb 0%, #f7fbf7 100%); }
-body.dark-theme .howto-page {    background:#161515;
+body.dark-theme.howto-page {
+    background: var(--bg-body);
+}
+body.dark-theme .howto-hero__bg {
+    opacity: 0;
 }
 .howto-hero { position: relative; overflow: hidden; padding: 80px 40px; }
 .howto-hero__bg { position: absolute; inset: 0; z-index: 0; opacity: .95; }
@@ -1606,7 +1653,8 @@ body.dark-theme .howto-sub,
 body.dark-theme .file-info,
 body.dark-theme .suggestion-form label,
 body.dark-theme .accordion-title,
-body.dark-theme .accordion-caret {
+body.dark-theme .accordion-caret,
+body.dark-theme .contact-hero__eyebrow {
     color: var(--text-main);
 }
 body.dark-theme .step-card p,
@@ -1614,7 +1662,9 @@ body.dark-theme .step-card ul,
 body.dark-theme .section-sub,
 body.dark-theme .howto-sub,
 body.dark-theme .file-info,
-body.dark-theme .suggestion-form label {
+body.dark-theme .suggestion-form label,
+body.dark-theme .accordion-panel,
+body.dark-theme .accordion-panel li {
     color: var(--text-muted);
 }
 
