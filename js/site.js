@@ -1,5 +1,113 @@
 (function () {
     var themeToggle = document.querySelector('.theme-toggle');
+    function updateHomeProfileLink() {
+        var profileLink = document.getElementById('home-profile');
+        var signInLink = document.getElementById('home-signin');
+        var signUpLink = document.getElementById('home-signup');
+        var hasUser = !!getStoredUser();
+
+        if (profileLink) {
+            profileLink.hidden = !hasUser;
+        }
+        if (signInLink) {
+            signInLink.hidden = hasUser;
+        }
+        if (signUpLink) {
+            signUpLink.hidden = hasUser;
+        }
+    }
+
+    function setAuthMessage(message, isError) {
+        var el = document.getElementById('auth-message');
+        if (!el) return;
+        el.textContent = message || '';
+        el.style.color = isError ? '#b55478' : '#4f6b4d';
+    }
+
+    function saveUser(user) {
+        localStorage.setItem('oldenly-user', JSON.stringify(user));
+    }
+
+    function getStoredUser() {
+        try {
+            return JSON.parse(localStorage.getItem('oldenly-user') || 'null');
+        } catch (e) {
+            return null;
+        }
+    }
+
+    updateHomeProfileLink();
+
+    var loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var account = document.getElementById('login-account').value.trim();
+            var password = document.getElementById('login-password').value;
+            var storedUser = getStoredUser();
+
+            if (!account || !password) {
+                setAuthMessage('Please fill in both fields.', true);
+                return;
+            }
+
+            if (!storedUser) {
+                setAuthMessage('No account found. Please sign up first.', true);
+                return;
+            }
+
+            if ((storedUser.email && storedUser.email.toLowerCase() === account.toLowerCase()) || (storedUser.username && storedUser.username.toLowerCase() === account.toLowerCase())) {
+                if (storedUser.password === password) {
+                    saveUser(storedUser);
+                    setAuthMessage('Welcome back!', false);
+                    window.location.href = 'profile.html';
+                } else {
+                    setAuthMessage('Incorrect password.', true);
+                }
+            } else {
+                setAuthMessage('We could not find that account.', true);
+            }
+        });
+    }
+
+    var signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var username = document.getElementById('signup-username').value.trim();
+            var email = document.getElementById('signup-email').value.trim();
+            var password = document.getElementById('signup-password').value;
+            var confirm = document.getElementById('signup-confirm').value;
+
+            if (!username || !email || !password || !confirm) {
+                setAuthMessage('Please complete all fields.', true);
+                return;
+            }
+
+            if (password.length < 6) {
+                setAuthMessage('Password must be at least 6 characters.', true);
+                return;
+            }
+
+            if (password !== confirm) {
+                setAuthMessage('Passwords do not match.', true);
+                return;
+            }
+
+            var user = {
+                username: username,
+                email: email,
+                password: password,
+                stories: '12',
+                joined: 'Jun 2026'
+            };
+            saveUser(user);
+            setAuthMessage('Account created! Redirecting to your profile...', false);
+            window.setTimeout(function () {
+                window.location.href = 'profile.html';
+            }, 700);
+        });
+    }
     function applyTheme(isDark) {
         document.body.classList.toggle('dark-theme', isDark);
         if (themeToggle) {
