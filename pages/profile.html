@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oldenly — Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="profile-page">
+    <header class="site-header site-header--auth">
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav__left">
+                <a href="../index.html" class="nav__brand">
+                    <img class="nav__logo" src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
+                    <span class="nav__name">Oldenly</span>
+                </a>
+            </div>
+            <div class="nav__right">
+                <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+                    <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+                </button>
+                <a href="../index.html" class="nav__signin">Home</a>
+                <button class="nav__login" id="logout-btn" type="button">Log out</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-main">
+        <section class="profile-hero">
+            <div class="profile-card">
+                <div class="profile-card__avatar" id="profile-avatar">U</div>
+                <div class="profile-card__content">
+                    <p class="profile-card__eyebrow">Welcome back</p>
+                    <h1 id="profile-name">Your profile</h1>
+                    <p id="profile-email" class="profile-card__text">Loading your story...</p>
+                    <div class="profile-stats">
+                        <div>
+                            <strong id="profile-stories">0</strong>
+                            <span>Stories shared</span>
+                        </div>
+                        <div>
+                            <strong id="profile-joined">—</strong>
+                            <span>Member since</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <a href="../index.html" class="btn btn--filled">Discover stories</a>
+                        <button class="btn btn--outline" type="button" id="edit-profile-btn">Edit profile</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/site.js"></script>
+    <script>
+        (function () {
+            var user = JSON.parse(localStorage.getItem('oldenly-user') || 'null');
+            if (!user) {
+                window.location.href = 'sign-in.html';
+                return;
+            }
+
+            document.getElementById('profile-name').textContent = user.username || 'Your profile';
+            document.getElementById('profile-email').textContent = user.email || 'No email provided';
+            document.getElementById('profile-avatar').textContent = (user.username || 'U').charAt(0).toUpperCase();
+            document.getElementById('profile-stories').textContent = user.stories || '0';
+            document.getElementById('profile-joined').textContent = user.joined || 'Recently joined';
+
+            document.getElementById('logout-btn').addEventListener('click', function () {
+                localStorage.removeItem('oldenly-user');
+                window.location.href = '../index.html';
+            });
+        })();
+    </script>
+</body>
+</html>
