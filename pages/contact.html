@@ -111,6 +111,44 @@
                 </article>
             </div>
         </section>
+
+        <section class="volunteer" id="volunteer">
+            <div class="v-deco v-deco--a"></div>
+            <div class="v-deco v-deco--b"></div>
+
+            <div class="vol__wrap">
+                <h2 class="vol__title reveal">Become a Volunteer</h2>
+                <form class="vol__form reveal reveal-d1" onsubmit="return false;">
+                    <div class="vol__field">
+                        <label class="vol__label" for="vol-name">Full Name</label>
+                        <input class="vol__input" id="vol-name" type="text" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="vol__field">
+                        <label class="vol__label" for="vol-email">Email Address</label>
+                        <input class="vol__input" id="vol-email" type="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="vol__field">
+                        <label class="vol__label" for="vol-phone">Phone Number</label>
+                        <input class="vol__input" id="vol-phone" type="tel" placeholder="Enter your phone number">
+                    </div>
+                    <div class="vol__field">
+                        <label class="vol__label" for="vol-interest">Area of Interest</label>
+                        <select class="vol__select" id="vol-interest" required>
+                            <option value="" disabled selected>Select an area</option>
+                            <option>Story Recording</option>
+                            <option>Companion Visits</option>
+                            <option>Workshop Support</option>
+                            <option>Tech Assistance</option>
+                        </select>
+                    </div>
+                    <div class="vol__field">
+                        <label class="vol__label" for="vol-message">Why do you want to volunteer?</label>
+                        <textarea class="vol__textarea" id="vol-message" placeholder="Tell us a bit about yourself..."></textarea>
+                    </div>
+                    <button type="submit" class="vol__submit">Submit Application</button>
+                </form>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">

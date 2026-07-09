@@ -693,7 +693,7 @@ body.dark-theme .nav__profile:hover {
    SECCIÓN 5 — VOLUNTEER FORM
    ================================================ */
 .volunteer {
-    background: linear-gradient(135deg, #f4d5e3 0%, #f7cadb 55%, #f9e2ec 100%);
+    background: linear-gradient(135deg, #f4edf6 100%, #f9eef5 38%, #fffafc 0%);
     padding: 100px 60px 120px;
     position: relative;
     overflow: hidden;
