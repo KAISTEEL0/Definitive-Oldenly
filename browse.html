@@ -1,0 +1,185 @@
+        <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore our stories - Oldenly</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/browse.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="site-header site-header--home">
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav__left">
+                <a href="index.html" class="nav__brand">
+                    <img class="nav__logo"
+                        src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c"
+                        alt="Oldenly Logo">
+                    <span class="nav__name">Oldenly</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="nav-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav__list" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/contact.html">Contact us</a></li>
+                    <li><a href="pages/how-to-use.html">How to use</a></li>
+                    <li><a href="AboutUs.html">About us</a></li>
+                    <li><a href="upload.html" style="color: var(--primary-color); font-weight: 600;">Browse stories</a></li>
+                </ul>
+            </div>
+            <div class="nav__right">
+                <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+                    <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+                </button>
+                <a href="pages/sign-in.html" class="nav__signin" id="home-signin">Sign in</a>
+                <a href="pages/sign-up.html" class="nav__login" id="home-signup">Sign up</a>
+                <a href="pages/profile.html" class="nav__profile" id="home-profile" hidden>
+                    <span class="nav__profile-badge" aria-hidden="true">👤</span>
+                    <span class="nav__profile-label">Profile</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="browse-hero">
+            <div class="browse-hero__overlay"></div>
+            <div class="browse-hero__content">
+                <h1 class="browse-hero__title">Explore our stories</h1>
+                <p class="browse-hero__subtitle">Discover incredible tales organized by categories.</p>
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+                    <a href="#browse-section" class="btn btn--filled browse-hero__btn">Start reading</a>
+                    <a href="upload.html" class="btn btn--filled browse-hero__btn" style="background-color: #6c63ff; border-color: #6c63ff;">Share your story</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BROWSE SECTION -->
+        <section class="browse-section" id="browse-section">
+            <div class="browse-container">
+
+                <!-- Header of the section -->
+                <div class="browse-header">
+                    <div class="browse-header__left">
+                        <h2 class="browse-header__title">Explore our stories</h2>
+                        <p class="browse-header__subtitle">Find your next favorite story</p>
+                    </div>
+                    <div class="browse-header__right">
+                        <label for="sort-select" class="sort-label">Sort by:</label>
+                        <select id="sort-select" class="sort-select">
+                            <option value="populares">Most popular</option>
+                            <option value="recientes">Most recent</option>
+                            <option value="lecturas">Most read</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container" style="margin-bottom: 30px;">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search by title, author, category or tags..." style="width: 100%; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--border-color); font-family: var(--font-family); font-size: 1rem; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: all 0.3s ease;">
+                </div>
+
+                <!-- Categories Pill Filters -->
+                <div class="categories-wrapper">
+                    <div class="categories-pills" id="categories-pills">
+                        <button class="pill-btn active" data-category="Todos">
+                            <span class="pill-icon">📚</span> All
+                        </button>
+                        <button class="pill-btn" data-category="Horror">
+                            <span class="pill-icon">👻</span> Horror
+                        </button>
+                        <button class="pill-btn" data-category="Drama">
+                            <span class="pill-icon">🎭</span> Drama
+                        </button>
+                        <button class="pill-btn" data-category="Mystery">
+                            <span class="pill-icon">🔍</span> Mystery
+                        </button>
+                        <button class="pill-btn" data-category="Romance">
+                            <span class="pill-icon">💖</span> Romance
+                        </button>
+                        <button class="pill-btn" data-category="Fantasy">
+                            <span class="pill-icon">🦄</span> Fantasy
+                        </button>
+                        <button class="pill-btn" data-category="Adventure">
+                            <span class="pill-icon">🧭</span> Adventure
+                        </button>
+                        <button class="pill-btn" data-category="Tips">
+                            <span class="pill-icon">💡</span> Tips
+                        </button>
+                        <button class="pill-btn" data-category="Sci-Fi">
+                            <span class="pill-icon">🚀</span> Sci-Fi
+                        </button>
+                        <button class="pill-btn" data-category="Comedy">
+                            <span class="pill-icon">😂</span> Comedy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stories Counter -->
+                <div class="stories-counter" id="stories-counter">
+                    Showing 0 stories
+                </div>
+
+                <!-- Stories Grid / Container -->
+                <div class="stories-grid" id="stories-grid">
+                    <!-- Dynamic cards or skeleton loaders will be injected here -->
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="site-footer__wrap">
+            <div class="site-footer__brand">
+                <a href="index.html" class="site-footer__logo-link">
+                    <img src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c"
+                        alt="Oldenly Logo">
+                    <span>Oldenly</span>
+                </a>
+                <p class="site-footer__tagline">Honoring every story. Honoring every voice.</p>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Explore</h3>
+                <ul class="site-footer__list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Explore our stories</a></li>
+                    <li><a href="upload.html">Browse stories</a></li>
+                    <li><a href="pages/how-to-use.html">How to use</a></li>
+                    <li><a href="AboutUs.html">About us</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Connect</h3>
+                <ul class="site-footer__list">
+                    <li><a href="pages/contact.html">Contact us</a></li>
+                    <li><a href="index.html#volunteer">Volunteer</a></li>
+                    <li><a href="pages/sign-in.html">Sign in</a></li>
+                    <li><a href="pages/sign-up.html">Sign up</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="site-footer__bottom">
+            <p>&copy; 2026 Oldenly. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">↑</button>
+
+    <script src="js/site.js"></script>
+    <script src="js/browse.js"></script>
+</body>
+
+</html>
