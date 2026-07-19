@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oldenly — Profile</title>
+    <title>Oldenly — Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="profile-page">
+    <!-- HEADER -->
     <header class="site-header site-header--auth">
         <nav class="nav" aria-label="Main navigation">
             <div class="nav__left">
@@ -15,64 +16,323 @@
                     <img class="nav__logo" src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
                     <span class="nav__name">Oldenly</span>
                 </a>
+                <ul class="nav__list" id="nav-menu">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../browse.html">Stories</a></li>
+                    <li><a href="../browse.html">Explore</a></li>
+                    <li><a href="profile.html?tab=settings">Configuración</a></li>
+                </ul>
             </div>
             <div class="nav__right">
-                <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
-                    <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
-                </button>
-                <a href="../index.html" class="nav__signin">Home</a>
-                <button class="nav__login" id="logout-btn" type="button">Log out</button>
+                <!-- Will be rendered dynamically by Navbar.js -->
             </div>
         </nav>
     </header>
 
-    <main class="profile-main">
-        <section class="profile-hero">
-            <div class="profile-card">
-                <div class="profile-card__avatar" id="profile-avatar">U</div>
-                <div class="profile-card__content">
-                    <p class="profile-card__eyebrow">Welcome back</p>
-                    <h1 id="profile-name">Your profile</h1>
-                    <p id="profile-email" class="profile-card__text">Loading your story...</p>
-                    <div class="profile-stats">
-                        <div>
-                            <strong id="profile-stories">0</strong>
-                            <span>Stories shared</span>
-                        </div>
-                        <div>
-                            <strong id="profile-joined">—</strong>
-                            <span>Member since</span>
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-user-info">
+                <div class="user-avatar-container"></div>
+                <h4 id="sidebar-user-name">Loading...</h4>
+                <span class="status-badge"><span class="status-dot"></span> Online</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-nav-link active" data-tab="profile">
+                    <span class="sidebar-icon">👤</span> Información personal
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="edit">
+                    <span class="sidebar-icon">✏️</span> Editar perfil
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="photo">
+                    <span class="sidebar-icon">📷</span> Cambiar foto
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="activity">
+                    <span class="sidebar-icon">📈</span> Mi actividad
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="stories">
+                    <span class="sidebar-icon">📖</span> Historias
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="settings">
+                    <span class="sidebar-icon">⚙️</span> Configuración
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="security">
+                    <span class="sidebar-icon">🔒</span> Seguridad
+                </a>
+                <a href="#" class="sidebar-nav-link" data-tab="logout">
+                    <span class="sidebar-icon">🚪</span> Cerrar sesión
+                </a>
+            </nav>
+        </aside>
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+            <!-- TAB: PROFILE -->
+            <div class="dashboard-tab-content active" id="tab-profile">
+                <!-- Large Profile Card -->
+                <div class="dashboard-card profile-hero-card">
+                    <div class="profile-hero-card__header">
+                        <div class="user-avatar-container large-avatar"></div>
+                        <div class="profile-hero-card__info">
+                            <div class="profile-hero-card__title-row">
+                                <h1 id="profile-name">Loading...</h1>
+                                <span class="status-badge"><span class="status-dot"></span> <span id="profile-status">Online</span></span>
+                            </div>
+                            <p id="profile-username" class="profile-card__username">@username</p>
+                            <p id="profile-email" class="profile-card__email">email@example.com</p>
+                            <p id="profile-bio" class="profile-card__bio">Loading biography...</p>
                         </div>
                     </div>
-                    <div class="profile-actions">
-                        <a href="../index.html" class="btn btn--filled">Discover stories</a>
-                        <button class="btn btn--outline" type="button" id="edit-profile-btn">Edit profile</button>
+                    <div class="profile-hero-card__meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Member since</span>
+                            <strong id="profile-joined">—</strong>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Last login</span>
+                            <strong id="profile-last-login">—</strong>
+                        </div>
+                    </div>
+                    <div class="profile-hero-card__actions">
+                        <button class="btn btn--filled" id="edit-profile-btn">✏️ Edit Profile</button>
+                        <button class="btn btn--outline" id="share-profile-btn">🔗 Share Profile</button>
+                        <button class="btn btn--outline" id="card-change-photo-btn">📷 Change Photo</button>
+                    </div>
+                </div>
+
+                <!-- Statistics Panel -->
+                <h2 class="section-title">Panel de Estadísticas</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card__icon">📖</div>
+                        <div class="stat-card__value" id="stat-stories">0</div>
+                        <div class="stat-card__label">Historias compartidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon">❤️</div>
+                        <div class="stat-card__value" id="stat-favorites">0</div>
+                        <div class="stat-card__label">Historias favoritas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon">📅</div>
+                        <div class="stat-card__value" id="stat-days">0</div>
+                        <div class="stat-card__label">Días registrado</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon">🕒</div>
+                        <div class="stat-card__value" id="stat-access">—</div>
+                        <div class="stat-card__label">Último acceso</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon">💬</div>
+                        <div class="stat-card__value" id="stat-comments">0</div>
+                        <div class="stat-card__label">Comentarios</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon">👍</div>
+                        <div class="stat-card__value" id="stat-likes">0</div>
+                        <div class="stat-card__label">Likes recibidos</div>
+                    </div>
+                </div>
+                <!-- Badges Section -->
+                <div class="dashboard-card badges-card">
+                    <h3>Insignias</h3>
+                    <div class="badges-container" id="stat-badges">
+                        <!-- Badges will be rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Recent Activity Timeline -->
+                <div class="dashboard-card activity-card">
+                    <h3>Actividad Reciente</h3>
+                    <div class="timeline" id="activity-timeline">
+                        <!-- Timeline will be rendered dynamically -->
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
 
+            <!-- TAB: PHOTO -->
+            <div class="dashboard-tab-content" id="tab-photo">
+                <div class="dashboard-card">
+                    <h2>Cambiar Foto de Perfil</h2>
+                    <p class="tab-subtitle">Sube una imagen para personalizar tu perfil en Oldenly.</p>
+                    <div class="photo-upload-container">
+                        <div class="user-avatar-container large-avatar preview-avatar"></div>
+                        <div class="photo-upload-actions">
+                            <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+                            <button class="btn btn--filled" id="change-photo-btn">Seleccionar imagen</button>
+                            <button class="btn btn--outline btn--danger" id="delete-photo-btn" style="margin-top: 8px;">Eliminar foto</button>
+                            <p class="upload-tip">Formatos soportados: JPG, PNG, GIF. Tamaño máximo: 1.5MB.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: ACTIVITY -->
+            <div class="dashboard-tab-content" id="tab-activity">
+                <div class="dashboard-card">
+                    <h2>Mi Actividad Completa</h2>
+                    <p class="tab-subtitle">Aquí puedes ver el historial completo de tus acciones en la plataforma.</p>
+                    <div class="timeline" id="full-activity-timeline">
+                        <!-- Will be populated dynamically or share the same timeline element -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: STORIES -->
+            <div class="dashboard-tab-content" id="tab-stories">
+                <div class="dashboard-card">
+                    <h2>Mis Historias</h2>
+                    <p class="tab-subtitle">Administra las historias que has compartido con la comunidad.</p>
+                    <div class="stories-list">
+                        <div class="story-item-simulated">
+                            <div class="story-item-simulated__meta">Compartido el 12 de Junio, 2026</div>
+                            <h3>Un viaje en el tiempo: Mi infancia en el campo</h3>
+                            <p>Recuerdos de las tardes de verano corriendo entre los campos de trigo y escuchando las historias de mi abuelo...</p>
+                            <div class="story-item-simulated__actions">
+                                <span class="story-stat">👍 14 Likes</span>
+                                <span class="story-stat">💬 3 Comentarios</span>
+                            </div>
+                        </div>
+                        <div class="story-item-simulated">
+                            <div class="story-item-simulated__meta">Compartido el 5 de Junio, 2026</div>
+                            <h3>La primera vez que vi el mar</h3>
+                            <p>Tenía diez años cuando viajamos en tren hacia la costa. El olor a sal y la inmensidad del agua azul quedaron grabados en mi mente para siempre...</p>
+                            <div class="story-item-simulated__actions">
+                                <span class="story-stat">👍 10 Likes</span>
+                                <span class="story-stat">💬 2 Comentarios</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TAB: SETTINGS -->
+            <div class="dashboard-tab-content" id="tab-settings">
+                <div class="dashboard-card settings-card">
+                    <h2>Configuración</h2>
+                    <p class="tab-subtitle">Personaliza tu experiencia en la plataforma.</p>
+                    
+                    <div class="settings-section">
+                        <h3>Tema</h3>
+                        <div class="settings-row">
+                            <label for="settings-theme-toggle">Modo oscuro</label>
+                            <label class="switch">
+                                <input type="checkbox" id="settings-theme-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Idioma</h3>
+                        <div class="settings-row">
+                            <label for="settings-language">Idioma de la interfaz</label>
+                            <select id="settings-language" class="settings-select">
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section danger-zone">
+                        <h3>Zona de Peligro</h3>
+                        <p class="danger-tip">Estas acciones son permanentes y no se pueden deshacer.</p>
+                        <div class="settings-row">
+                            <div>
+                                <strong>Eliminar cuenta</strong>
+                                <p>Borra permanentemente tu cuenta y todos tus datos de este navegador.</p>
+                            </div>
+                            <button class="btn btn--filled btn--danger" id="delete-account-btn">Eliminar cuenta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: SECURITY -->
+            <div class="dashboard-tab-content" id="tab-security">
+                <div class="dashboard-card">
+                    <h2>Seguridad</h2>
+                    <p class="tab-subtitle">Administra la seguridad de tu cuenta.</p>
+                    <form class="security-form-simulated" onsubmit="event.preventDefault(); UI.showToast('Password updated successfully (simulated)!', 'success');">
+                        <div class="auth-field">
+                            <label class="auth-label" for="sec-current-pass">Contraseña actual</label>
+                            <input class="auth-input" id="sec-current-pass" type="password" placeholder="••••••••">
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="sec-new-pass">Nueva contraseña</label>
+                            <input class="auth-input" id="sec-new-pass" type="password" placeholder="••••••••">
+                        </div>
+                        <button class="btn btn--filled" type="submit">Actualizar contraseña</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- EDIT PROFILE MODAL -->
+    <div class="modal-overlay" id="edit-profile-modal">
+        <div class="modal-card scale-in">
+            <div class="modal-header">
+                <h3>Editar Perfil</h3>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <form id="edit-profile-form">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="auth-field">
+                            <label class="auth-label" for="edit-firstname">Nombre</label>
+                            <input class="auth-input" id="edit-firstname" type="text" placeholder="Tu nombre">
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="edit-lastname">Apellido</label>
+                            <input class="auth-input" id="edit-lastname" type="text" placeholder="Tu apellido">
+                        </div>
+                    </div>
+                    <div class="auth-field">
+                        <label class="auth-label" for="edit-username">Nombre de usuario</label>
+                        <input class="auth-input" id="edit-username" type="text" required>
+                    </div>
+                    <div class="auth-field">
+                        <label class="auth-label" for="edit-email">Correo electrónico</label>
+                        <input class="auth-input" id="edit-email" type="email" required>
+                    </div>
+                    <div class="auth-field">
+                        <label class="auth-label" for="edit-bio">Biografía</label>
+                        <textarea class="auth-input auth-textarea" id="edit-bio" rows="3" placeholder="Cuéntanos un poco sobre ti..."></textarea>
+                    </div>
+                    <div class="form-grid">
+                        <div class="auth-field">
+                            <label class="auth-label" for="edit-country">País</label>
+                            <select class="auth-input" id="edit-country">
+                                <option value="United States">United States</option>
+                                <option value="Spain">España</option>
+                                <option value="Mexico">México</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Other">Otro</option>
+                            </select>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label" for="edit-birthdate">Fecha de nacimiento</label>
+                            <input class="auth-input" id="edit-birthdate" type="date">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn--outline" id="edit-cancel-btn">Cancelar</button>
+                    <button type="submit" class="btn btn--filled">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="../js/helpers.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/profile.js"></script>
     <script src="../js/site.js"></script>
-    <script>
-        (function () {
-            var user = JSON.parse(localStorage.getItem('oldenly-user') || 'null');
-            if (!user) {
-                window.location.href = 'sign-in.html';
-                return;
-            }
-
-            document.getElementById('profile-name').textContent = user.username || 'Your profile';
-            document.getElementById('profile-email').textContent = user.email || 'No email provided';
-            document.getElementById('profile-avatar').textContent = (user.username || 'U').charAt(0).toUpperCase();
-            document.getElementById('profile-stories').textContent = user.stories || '0';
-            document.getElementById('profile-joined').textContent = user.joined || 'Recently joined';
-
-            document.getElementById('logout-btn').addEventListener('click', function () {
-                localStorage.removeItem('oldenly-user');
-                window.location.href = '../index.html';
-            });
-        })();
-    </script>
 </body>
 </html>

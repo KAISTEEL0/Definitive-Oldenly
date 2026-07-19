@@ -63,7 +63,7 @@ const stories = [
         autor: "Sophie L.",
         avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150",
         categoria: "Romance",
-        imagen: "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?q=80&w=600",
+        imagen: "https://www.travelcaffeine.com/wp-content/uploads/2018/07/taizoin-garden-myoshinji-temple-cherry-blossoms-sakura-fisheye-sunburst-kyoto-japan-bricker.jpg",
         descripcion: "Behind the overgrown hedge lay a garden frozen in time — roses still blooming, and the echo of a laughter.",
         likes: 320,
         comentarios: 45,

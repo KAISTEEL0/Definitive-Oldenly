@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oldenly — Become a Volunteer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="volunteer-page">
+
+    <!-- HEADER -->
+    <header class="site-header site-header--home">
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav__left">
+                <a href="index.html" class="nav__brand">
+                    <img class="nav__logo" src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
+                    <span class="nav__name">Oldenly</span>
+                </a>
+                <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav__list" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="volunteer.html" class="is-active">Volunteer</a></li>
+                    <li><a href="browse.html">Explore Stories</a></li>
+                    <li><a href="pages/how-to-use.html">How to use</a></li>
+                    <li><a href="AboutUs.html">About us</a></li>
+                    <li><a href="pages/contact.html">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="nav__right">
+                <!-- Will be rendered dynamically by Navbar.js -->
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="volunteer-hero">
+            <div class="v-deco v-deco--a"></div>
+            <div class="v-deco v-deco--b"></div>
+            <div class="v-blob"></div>
+            <div class="volunteer-hero__inner">
+                <div class="volunteer-hero__text">
+                    <h1 class="volunteer-hero__title">Become a <em>Volunteer</em></h1>
+                    <p class="volunteer-hero__subtitle">Help reduce loneliness by sharing your time, kindness, and experiences with older adults.</p>
+                    <div class="volunteer-hero__ctas">
+                        <a href="pages/contact.html#volunteer" class="btn btn--filled">Join Today</a>
+                        <a href="#why-volunteer" class="btn btn--outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="volunteer-hero__image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600" alt="Volunteer smiling with an older adult" class="volunteer-hero__image">
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY VOLUNTEER SECTION -->
+        <section class="why-volunteer" id="why-volunteer">
+            <div class="why-volunteer__wrap">
+                <h2 class="why-volunteer__title reveal">Why Volunteer with <em>Oldenly</em>?</h2>
+                <p class="why-volunteer__intro reveal">Volunteering is a powerful way to make a difference, build friendships, and learn from a lifetime of wisdom.</p>
+                <div class="why-volunteer__grid">
+                    <div class="why-volunteer__card reveal">
+                        <div class="why-volunteer__icon">❤️</div>
+                        <h3>Make meaningful connections</h3>
+                        <p>Build deep, lasting bonds with seniors who have incredible life stories to share.</p>
+                    </div>
+                    <div class="why-volunteer__card reveal">
+                        <div class="why-volunteer__icon">🌍</div>
+                        <h3>Help your community</h3>
+                        <p>Contribute to a more inclusive, compassionate, and connected society.</p>
+                    </div>
+                    <div class="why-volunteer__card reveal">
+                        <div class="why-volunteer__icon">😊</div>
+                        <h3>Reduce loneliness</h3>
+                        <p>Be the highlight of someone's week simply by listening and chatting.</p>
+                    </div>
+                    <div class="why-volunteer__card reveal">
+                        <div class="why-volunteer__icon">📚</div>
+                        <h3>Learn from life experiences</h3>
+                        <p>Gain invaluable wisdom, advice, and perspectives from older generations.</p>
+                    </div>
+                    <div class="why-volunteer__card reveal">
+                        <div class="why-volunteer__icon">🤝</div>
+                        <h3>Build friendships</h3>
+                        <p>Connect with other like-minded volunteers who share your passion for helping.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKSHOPS SECTION -->
+        <section class="workshops-section" id="workshops">
+            <div class="workshops-section__wrap">
+                <div class="workshops-section__header">
+                    <h2 class="workshops-section__title reveal">Available <em>Workshops</em></h2>
+                    <p class="workshops-section__subtitle reveal">Choose an activity that matches your interests and join our community of volunteers and seniors.</p>
+                </div>
+                <div class="workshops-grid" id="workshops-grid">
+                    <!-- Workshops will be rendered dynamically by volunteer.js -->
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENTS CALENDAR SECTION -->
+        <section class="calendar-section" id="calendar">
+            <div class="calendar-section__wrap">
+                <div class="calendar-section__header">
+                    <h2 class="calendar-section__title reveal">Upcoming <em>Events Calendar</em></h2>
+                    <p class="calendar-section__subtitle reveal">Stay up to date with our scheduled community activities and workshops.</p>
+                </div>
+                <div class="calendar-container" id="calendar-container">
+                    <!-- Calendar rows will be rendered dynamically by volunteer.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS TO PARTICIPATE SECTION -->
+        <section class="process-section">
+            <div class="process-section__wrap">
+                <h2 class="process-section__title reveal">How to <em>Get Started</em></h2>
+                <p class="process-section__subtitle reveal">Joining our volunteer community is simple and rewarding. Follow these four easy steps.</p>
+                <div class="process-steps">
+                    <div class="process-step reveal">
+                        <div class="process-step__icon-wrapper">
+                            <span class="process-step__icon">📝</span>
+                            <span class="process-step__number">1</span>
+                        </div>
+                        <h3>Register</h3>
+                        <p>Create your free account on Oldenly to join our community.</p>
+                    </div>
+                    <div class="process-step-arrow">➔</div>
+                    <div class="process-step reveal">
+                        <div class="process-step__icon-wrapper">
+                            <span class="process-step__icon">🎨</span>
+                            <span class="process-step__number">2</span>
+                        </div>
+                        <h3>Choose a Workshop</h3>
+                        <p>Browse our available workshops and select one that interests you.</p>
+                    </div>
+                    <div class="process-step-arrow">➔</div>
+                    <div class="process-step reveal">
+                        <div class="process-step__icon-wrapper">
+                            <span class="process-step__icon">🤝</span>
+                            <span class="process-step__number">3</span>
+                        </div>
+                        <h3>Attend</h3>
+                        <p>Show up, meet wonderful seniors, and share your time and kindness.</p>
+                    </div>
+                    <div class="process-step-arrow">➔</div>
+                    <div class="process-step reveal">
+                        <div class="process-step__icon-wrapper">
+                            <span class="process-step__icon">💖</span>
+                            <span class="process-step__number">4</span>
+                        </div>
+                        <h3>Share Memories</h3>
+                        <p>Write about your experience, share stories, and inspire others.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section class="testimonials-section">
+            <div class="testimonials-section__wrap">
+                <h2 class="testimonials-section__title reveal">What Our <em>Community Says</em></h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card reveal">
+                        <p class="testimonial-text">"I never imagined that simply talking with someone for an hour could make such a difference. It has completely changed my perspective on life."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100" alt="Sarah" class="testimonial-avatar">
+                            <div>
+                                <h4 class="testimonial-name">Sarah Jenkins</h4>
+                                <span class="testimonial-age">Volunteer, 24 years old</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <p class="testimonial-text">"The volunteers bring so much joy and energy into my home. I look forward to our weekly board game afternoons more than anything else."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" alt="Arthur" class="testimonial-avatar">
+                            <div>
+                                <h4 class="testimonial-name">Arthur Pendelton</h4>
+                                <span class="testimonial-age">Senior, 78 years old</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal">
+                        <p class="testimonial-text">"Teaching technology basics to seniors has been incredibly rewarding. Seeing their faces light up when they video call their grandkids is priceless."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100" alt="David" class="testimonial-avatar">
+                            <div>
+                                <h4 class="testimonial-name">David Miller</h4>
+                                <span class="testimonial-age">Volunteer, 31 years old</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION SECTION -->
+        <section class="volunteer-cta">
+            <div class="volunteer-cta__wrap">
+                <h2 class="volunteer-cta__title reveal">Ready to Make a Difference?</h2>
+                <p class="volunteer-cta__subtitle reveal">Join our community of volunteers today and help us bring smiles, warmth, and connection to older adults.</p>
+                <a href="pages/contact.html?interest=volunteer" class="btn btn--filled btn--lg reveal">Become a Volunteer</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="site-footer__wrap">
+            <div class="site-footer__brand">
+                <a href="index.html" class="site-footer__logo-link">
+                    <img src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
+                    <span>Oldenly</span>
+                </a>
+                <p class="site-footer__tagline">Honoring every story. Honoring every voice.</p>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Explore</h3>
+                <ul class="site-footer__list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse.html">Stories</a></li>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="pages/how-to-use.html">How to use</a></li>
+                    <li><a href="AboutUs.html">About us</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Connect</h3>
+                <ul class="site-footer__list">
+                    <li><a href="pages/contact.html">Contact us</a></li>
+                    <li><a href="pages/sign-in.html">Sign in</a></li>
+                    <li><a href="pages/sign-up.html">Sign up</a></li>
+                    <li><a href="pages/profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h3 class="site-footer__heading">Legal</h3>
+                <ul class="site-footer__list">
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="site-footer__bottom">
+            <p>&copy; 2026 Oldenly. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/helpers.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/volunteer.js"></script>
+    <script src="js/site.js"></script>
+    <script>
+        // Initialize volunteer page logic
+        if (window.Volunteer) {
+            Volunteer.init();
+        }
+    </script>
+</body>
+</html>
