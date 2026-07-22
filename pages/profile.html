@@ -17,10 +17,10 @@
                     <span class="nav__name">Oldenly</span>
                 </a>
                 <ul class="nav__list" id="nav-menu">
-                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="../browse.html">Stories</a></li>
                     <li><a href="../browse.html">Explore</a></li>
-                    <li><a href="profile.html?tab=settings">Configuración</a></li>
+                    <li><a href="profile.html?tab=settings">Settings</a></li>
                 </ul>
             </div>
             <div class="nav__right">
@@ -39,28 +39,28 @@
             </div>
             <nav class="sidebar-nav">
                 <a href="#" class="sidebar-nav-link active" data-tab="profile">
-                    <span class="sidebar-icon">👤</span> Información personal
+                    <span class="sidebar-icon">👤</span> Personal information
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="edit">
-                    <span class="sidebar-icon">✏️</span> Editar perfil
+                    <span class="sidebar-icon">✏️</span> Edit profile
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="photo">
-                    <span class="sidebar-icon">📷</span> Cambiar foto
+                    <span class="sidebar-icon">📷</span> Change photo
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="activity">
-                    <span class="sidebar-icon">📈</span> Mi actividad
+                    <span class="sidebar-icon">📈</span> My activity
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="stories">
-                    <span class="sidebar-icon">📖</span> Historias
+                    <span class="sidebar-icon">📖</span> Stories
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="settings">
-                    <span class="sidebar-icon">⚙️</span> Configuración
+                    <span class="sidebar-icon">⚙️</span> Settings
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="security">
-                    <span class="sidebar-icon">🔒</span> Seguridad
+                    <span class="sidebar-icon">🔒</span> Security
                 </a>
                 <a href="#" class="sidebar-nav-link" data-tab="logout">
-                    <span class="sidebar-icon">🚪</span> Cerrar sesión
+                    <span class="sidebar-icon">🚪</span> Log out
                 </a>
             </nav>
         </aside>
@@ -100,42 +100,42 @@
                 </div>
 
                 <!-- Statistics Panel -->
-                <h2 class="section-title">Panel de Estadísticas</h2>
+                <h2 class="section-title">Statistics Panel</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-card__icon">📖</div>
                         <div class="stat-card__value" id="stat-stories">0</div>
-                        <div class="stat-card__label">Historias compartidas</div>
+                        <div class="stat-card__label">Shared stories</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-card__icon">❤️</div>
                         <div class="stat-card__value" id="stat-favorites">0</div>
-                        <div class="stat-card__label">Historias favoritas</div>
+                        <div class="stat-card__label">Favorite stories</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-card__icon">📅</div>
                         <div class="stat-card__value" id="stat-days">0</div>
-                        <div class="stat-card__label">Días registrado</div>
+                        <div class="stat-card__label">Days registered</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-card__icon">🕒</div>
                         <div class="stat-card__value" id="stat-access">—</div>
-                        <div class="stat-card__label">Último acceso</div>
+                        <div class="stat-card__label">Last access</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-card__icon">💬</div>
                         <div class="stat-card__value" id="stat-comments">0</div>
-                        <div class="stat-card__label">Comentarios</div>
+                        <div class="stat-card__label">Comments</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-card__icon">👍</div>
                         <div class="stat-card__value" id="stat-likes">0</div>
-                        <div class="stat-card__label">Likes recibidos</div>
+                        <div class="stat-card__label">Likes received</div>
                     </div>
                 </div>
                 <!-- Badges Section -->
                 <div class="dashboard-card badges-card">
-                    <h3>Insignias</h3>
+                    <h3>Badges</h3>
                     <div class="badges-container" id="stat-badges">
                         <!-- Badges will be rendered dynamically -->
                     </div>
@@ -143,7 +143,7 @@
 
                 <!-- Recent Activity Timeline -->
                 <div class="dashboard-card activity-card">
-                    <h3>Actividad Reciente</h3>
+                    <h3>Recent Activity</h3>
                     <div class="timeline" id="activity-timeline">
                         <!-- Timeline will be rendered dynamically -->
                     </div>
@@ -153,15 +153,15 @@
             <!-- TAB: PHOTO -->
             <div class="dashboard-tab-content" id="tab-photo">
                 <div class="dashboard-card">
-                    <h2>Cambiar Foto de Perfil</h2>
-                    <p class="tab-subtitle">Sube una imagen para personalizar tu perfil en Oldenly.</p>
+                    <h2>Change Profile Photo</h2>
+                    <p class="tab-subtitle">Upload an image to personalize your profile on Oldenly.</p>
                     <div class="photo-upload-container">
                         <div class="user-avatar-container large-avatar preview-avatar"></div>
                         <div class="photo-upload-actions">
                             <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
-                            <button class="btn btn--filled" id="change-photo-btn">Seleccionar imagen</button>
-                            <button class="btn btn--outline btn--danger" id="delete-photo-btn" style="margin-top: 8px;">Eliminar foto</button>
-                            <p class="upload-tip">Formatos soportados: JPG, PNG, GIF. Tamaño máximo: 1.5MB.</p>
+                            <button class="btn btn--filled" id="change-photo-btn">Select image</button>
+                            <button class="btn btn--outline btn--danger" id="delete-photo-btn" style="margin-top: 8px;">Delete photo</button>
+                            <p class="upload-tip">Supported formats: JPG, PNG, GIF. Maximum size: 1.5MB.</p>
                         </div>
                     </div>
                 </div>
@@ -170,8 +170,8 @@
             <!-- TAB: ACTIVITY -->
             <div class="dashboard-tab-content" id="tab-activity">
                 <div class="dashboard-card">
-                    <h2>Mi Actividad Completa</h2>
-                    <p class="tab-subtitle">Aquí puedes ver el historial completo de tus acciones en la plataforma.</p>
+                    <h2>My Complete Activity</h2>
+                    <p class="tab-subtitle">Here you can see the complete history of your actions on the platform.</p>
                     <div class="timeline" id="full-activity-timeline">
                         <!-- Will be populated dynamically or share the same timeline element -->
                     </div>
@@ -181,25 +181,25 @@
             <!-- TAB: STORIES -->
             <div class="dashboard-tab-content" id="tab-stories">
                 <div class="dashboard-card">
-                    <h2>Mis Historias</h2>
-                    <p class="tab-subtitle">Administra las historias que has compartido con la comunidad.</p>
+                    <h2>My Stories</h2>
+                    <p class="tab-subtitle">Manage the stories you have shared with the community.</p>
                     <div class="stories-list">
                         <div class="story-item-simulated">
-                            <div class="story-item-simulated__meta">Compartido el 12 de Junio, 2026</div>
-                            <h3>Un viaje en el tiempo: Mi infancia en el campo</h3>
-                            <p>Recuerdos de las tardes de verano corriendo entre los campos de trigo y escuchando las historias de mi abuelo...</p>
+                            <div class="story-item-simulated__meta">Shared on June 12, 2026</div>
+                            <h3>A trip back in time: My childhood in the countryside</h3>
+                            <p>Memories of summer afternoons running through the wheat fields and listening to my grandfather's stories...</p>
                             <div class="story-item-simulated__actions">
                                 <span class="story-stat">👍 14 Likes</span>
-                                <span class="story-stat">💬 3 Comentarios</span>
+                                <span class="story-stat">💬 3 Comments</span>
                             </div>
                         </div>
                         <div class="story-item-simulated">
-                            <div class="story-item-simulated__meta">Compartido el 5 de Junio, 2026</div>
-                            <h3>La primera vez que vi el mar</h3>
-                            <p>Tenía diez años cuando viajamos en tren hacia la costa. El olor a sal y la inmensidad del agua azul quedaron grabados en mi mente para siempre...</p>
+                            <div class="story-item-simulated__meta">Shared on June 5, 2026</div>
+                            <h3>The first time I saw the sea</h3>
+                            <p>I was ten years old when we traveled by train to the coast. The smell of salt and the vastness of the blue water were forever etched in my mind...</p>
                             <div class="story-item-simulated__actions">
                                 <span class="story-stat">👍 10 Likes</span>
-                                <span class="story-stat">💬 2 Comentarios</span>
+                                <span class="story-stat">💬 2 Comments</span>
                             </div>
                         </div>
                     </div>
@@ -208,13 +208,13 @@
             <!-- TAB: SETTINGS -->
             <div class="dashboard-tab-content" id="tab-settings">
                 <div class="dashboard-card settings-card">
-                    <h2>Configuración</h2>
-                    <p class="tab-subtitle">Personaliza tu experiencia en la plataforma.</p>
+                    <h2>Settings</h2>
+                    <p class="tab-subtitle">Customize your experience on the platform.</p>
                     
                     <div class="settings-section">
-                        <h3>Tema</h3>
+                        <h3>Theme</h3>
                         <div class="settings-row">
-                            <label for="settings-theme-toggle">Modo oscuro</label>
+                            <label for="settings-theme-toggle">Dark mode</label>
                             <label class="switch">
                                 <input type="checkbox" id="settings-theme-toggle">
                                 <span class="slider round"></span>
@@ -223,9 +223,9 @@
                     </div>
 
                     <div class="settings-section">
-                        <h3>Idioma</h3>
+                        <h3>Language</h3>
                         <div class="settings-row">
-                            <label for="settings-language">Idioma de la interfaz</label>
+                            <label for="settings-language">Interface language</label>
                             <select id="settings-language" class="settings-select">
                                 <option value="en">English</option>
                                 <option value="es">Español</option>
@@ -234,14 +234,14 @@
                     </div>
 
                     <div class="settings-section danger-zone">
-                        <h3>Zona de Peligro</h3>
-                        <p class="danger-tip">Estas acciones son permanentes y no se pueden deshacer.</p>
+                        <h3>Danger Zone</h3>
+                        <p class="danger-tip">These actions are permanent and cannot be undone.</p>
                         <div class="settings-row">
                             <div>
-                                <strong>Eliminar cuenta</strong>
-                                <p>Borra permanentemente tu cuenta y todos tus datos de este navegador.</p>
+                                <strong>Delete account</strong>
+                                <p>Permanently delete your account and all your data from this browser.</p>
                             </div>
-                            <button class="btn btn--filled btn--danger" id="delete-account-btn">Eliminar cuenta</button>
+                            <button class="btn btn--filled btn--danger" id="delete-account-btn">Delete account</button>
                         </div>
                     </div>
                 </div>
@@ -250,18 +250,18 @@
             <!-- TAB: SECURITY -->
             <div class="dashboard-tab-content" id="tab-security">
                 <div class="dashboard-card">
-                    <h2>Seguridad</h2>
-                    <p class="tab-subtitle">Administra la seguridad de tu cuenta.</p>
+                    <h2>Security</h2>
+                    <p class="tab-subtitle">Manage your account security.</p>
                     <form class="security-form-simulated" onsubmit="event.preventDefault(); UI.showToast('Password updated successfully (simulated)!', 'success');">
                         <div class="auth-field">
-                            <label class="auth-label" for="sec-current-pass">Contraseña actual</label>
+                            <label class="auth-label" for="sec-current-pass">Current password</label>
                             <input class="auth-input" id="sec-current-pass" type="password" placeholder="••••••••">
                         </div>
                         <div class="auth-field">
-                            <label class="auth-label" for="sec-new-pass">Nueva contraseña</label>
+                            <label class="auth-label" for="sec-new-pass">New password</label>
                             <input class="auth-input" id="sec-new-pass" type="password" placeholder="••••••••">
                         </div>
-                        <button class="btn btn--filled" type="submit">Actualizar contraseña</button>
+                        <button class="btn btn--filled" type="submit">Update password</button>
                     </form>
                 </div>
             </div>
@@ -272,54 +272,54 @@
     <div class="modal-overlay" id="edit-profile-modal">
         <div class="modal-card scale-in">
             <div class="modal-header">
-                <h3>Editar Perfil</h3>
+                <h3>Edit Profile</h3>
                 <button class="modal-close-btn">&times;</button>
             </div>
             <form id="edit-profile-form">
                 <div class="modal-body">
                     <div class="form-grid">
                         <div class="auth-field">
-                            <label class="auth-label" for="edit-firstname">Nombre</label>
-                            <input class="auth-input" id="edit-firstname" type="text" placeholder="Tu nombre">
+                            <label class="auth-label" for="edit-firstname">First name</label>
+                            <input class="auth-input" id="edit-firstname" type="text" placeholder="Your first name">
                         </div>
                         <div class="auth-field">
-                            <label class="auth-label" for="edit-lastname">Apellido</label>
-                            <input class="auth-input" id="edit-lastname" type="text" placeholder="Tu apellido">
+                            <label class="auth-label" for="edit-lastname">Last name</label>
+                            <input class="auth-input" id="edit-lastname" type="text" placeholder="Your last name">
                         </div>
                     </div>
                     <div class="auth-field">
-                        <label class="auth-label" for="edit-username">Nombre de usuario</label>
+                        <label class="auth-label" for="edit-username">Username</label>
                         <input class="auth-input" id="edit-username" type="text" required>
                     </div>
                     <div class="auth-field">
-                        <label class="auth-label" for="edit-email">Correo electrónico</label>
+                        <label class="auth-label" for="edit-email">Email</label>
                         <input class="auth-input" id="edit-email" type="email" required>
                     </div>
                     <div class="auth-field">
-                        <label class="auth-label" for="edit-bio">Biografía</label>
-                        <textarea class="auth-input auth-textarea" id="edit-bio" rows="3" placeholder="Cuéntanos un poco sobre ti..."></textarea>
+                        <label class="auth-label" for="edit-bio">Biography</label>
+                        <textarea class="auth-input auth-textarea" id="edit-bio" rows="3" placeholder="Tell us a little about yourself..."></textarea>
                     </div>
                     <div class="form-grid">
                         <div class="auth-field">
-                            <label class="auth-label" for="edit-country">País</label>
+                            <label class="auth-label" for="edit-country">Country</label>
                             <select class="auth-input" id="edit-country">
                                 <option value="United States">United States</option>
-                                <option value="Spain">España</option>
-                                <option value="Mexico">México</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Mexico">Mexico</option>
                                 <option value="Argentina">Argentina</option>
                                 <option value="Colombia">Colombia</option>
-                                <option value="Other">Otro</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="auth-field">
-                            <label class="auth-label" for="edit-birthdate">Fecha de nacimiento</label>
+                            <label class="auth-label" for="edit-birthdate">Date of birth</label>
                             <input class="auth-input" id="edit-birthdate" type="date">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn--outline" id="edit-cancel-btn">Cancelar</button>
-                    <button type="submit" class="btn btn--filled">Guardar cambios</button>
+                    <button type="button" class="btn btn--outline" id="edit-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn--filled">Save changes</button>
                 </div>
             </form>
         </div>
