@@ -1460,6 +1460,7 @@ body.dark-theme .contact-form__submit:hover {
    RESPONSIVE — MOBILE
    ================================================ */
 @media (max-width: 720px) {
+    .nav { justify-content: flex-start; }
     .nav__toggle { display: flex; }
     .nav__list {
         display: none;
@@ -1483,8 +1484,8 @@ body.dark-theme .contact-form__submit:hover {
         display: block;
         padding: 12px 0;
     }
-    .nav__left { position: relative; gap: 16px; }
-    .nav__right { gap: 12px; }
+    .nav__left { position: relative; gap: 12 px; }
+    .nav__right { gap: 8px; }
     .nav__signin { font-size: 14px; }
     .nav__login { padding: 9px 18px; font-size: 14px; }
 
