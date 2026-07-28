@@ -4,23 +4,6 @@
     if (window.Auth) Auth.init();
     if (window.Profile && window.location.pathname.includes('profile.html')) Profile.init();
 
-    var toggle = document.querySelector('.nav__toggle');
-    var menu = document.getElementById('nav-menu');
-
-    if (toggle && menu) {
-        toggle.addEventListener('click', function () {
-            var open = menu.classList.toggle('is-open');
-            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-
-        menu.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                menu.classList.remove('is-open');
-                toggle.setAttribute('aria-expanded', 'false');
-            });
-        });
-    }
-
     var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) {

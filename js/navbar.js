@@ -159,11 +159,21 @@ const Navbar = {
         const toggle = header.querySelector('.nav__toggle');
         const menu = header.querySelector('#nav-menu');
         if (toggle && menu) {
+            const closeMenu = () => {
+                toggle.setAttribute('aria-expanded', 'false');
+                menu.classList.remove('is-open');
+                toggle.classList.remove('is-open');
+            };
+
             toggle.addEventListener('click', () => {
                 const expanded = toggle.getAttribute('aria-expanded') === 'true';
-                toggle.setAttribute('aria-expanded', !expanded);
-                menu.classList.toggle('active');
-                toggle.classList.toggle('active');
+                toggle.setAttribute('aria-expanded', String(!expanded));
+                menu.classList.toggle('is-open');
+                toggle.classList.toggle('is-open');
+            });
+
+            menu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', closeMenu);
             });
         }
     }

@@ -186,6 +186,7 @@ body.dark-theme .btn--outline:hover {
     top: 0;
     z-index: 100;
     background: var(--header-bg);
+    overflow: visible;
 }
 .site-header--auth { background: #5b8e75; }
 .site-header--auth.site-header--signup { background: #5f8f72; }
@@ -625,6 +626,15 @@ body.dark-theme .nav__profile:hover {
     background: var(--text-main);
     border-radius: 2px;
     transition: transform .2s, opacity .2s;
+}
+.nav__toggle.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav__toggle.is-open span:nth-child(2) {
+    opacity: 0;
+}
+.nav__toggle.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 .hero__inner {
@@ -1407,8 +1417,79 @@ body.dark-theme .contact-form__submit:hover {
     .phone__frame { width: 220px; height: 440px; }
 }
 @media (max-width: 960px) {
-    .nav { padding: 18px 30px; flex-wrap: wrap; gap: 12px; }
-    .nav__list { gap: 20px; }
+    .nav {
+        padding: 14px 20px;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .nav__left {
+        flex: 1;
+        min-width: 0;
+        gap: 10px;
+        position: static;
+    }
+    .nav__brand { min-width: 0; }
+    .nav__logo { height: 36px; }
+    .nav__name { font-size: 20px; }
+    .nav__toggle {
+        display: flex;
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+    }
+    .nav__list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        background: var(--nav-menu-bg);
+        padding: 8px 20px 16px;
+        border-radius: 0 0 16px 16px;
+        box-shadow: 0 8px 24px var(--shadow);
+        z-index: 200;
+    }
+    .nav__list.is-open { display: flex; }
+    .site-header--auth .nav__list {
+        background: rgba(187, 208, 187, .98);
+    }
+    .nav__list li { width: 100%; }
+    .nav__list a {
+        display: block;
+        padding: 12px 0;
+        font-size: 15px;
+    }
+    .nav__right {
+        flex-shrink: 0;
+        gap: 6px;
+    }
+    .nav__signin {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .nav__login {
+        padding: 8px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+    }
+    .theme-toggle__icon { font-size: 16px; }
+    .nav-user-name,
+    .nav-user-arrow { display: none; }
+    .nav-user-trigger { padding: 4px; }
+    .nav-dropdown-menu {
+        width: min(290px, calc(100vw - 24px));
+        right: 0;
+    }
 
     .hero__inner { padding: 0 30px 0 50px; }
     .hero__text  { max-width: 48%; }
@@ -1453,35 +1534,6 @@ body.dark-theme .contact-form__submit:hover {
    RESPONSIVE — MOBILE
    ================================================ */
 @media (max-width: 720px) {
-    .nav { justify-content: flex-start; }
-    .nav__toggle { display: flex; }
-    .nav__list {
-        display: none;
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        background: rgba(249,202,216,.98);
-        padding: 12px 20px;
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(45,27,61,.12);
-    }
-    .nav__list.is-open { display: flex; }
-    .site-header--auth .nav__list {
-        background: rgba(187, 208, 187, .98);
-    }
-    .nav__list li { width: 100%; }
-    .nav__list a {
-        display: block;
-        padding: 12px 0;
-    }
-    .nav__left { position: relative; gap: 12 px; }
-    .nav__right { gap: 8px; }
-    .nav__signin { font-size: 14px; }
-    .nav__login { padding: 9px 18px; font-size: 14px; }
-
     .hero__inner {
         flex-direction: column;
         justify-content: center;
@@ -1729,6 +1781,11 @@ body.dark-theme .auth-image-side {
 }
 
 @media (max-width: 480px) {
+    .nav { padding: 12px 16px; }
+    .nav__name { font-size: 18px; }
+    .nav__signin { display: none; }
+    .nav__login { padding: 7px 12px; font-size: 12px; }
+
     .auth-main { padding: 24px 16px; }
     .auth-form-side { padding: 28px 20px 24px; }
     .auth-title { font-size: 30px; }
