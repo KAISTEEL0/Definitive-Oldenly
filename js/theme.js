@@ -33,7 +33,7 @@ const ThemeManager = {
 
     /**
      * Applies the theme to the document body and updates toggle buttons.
-     * @param {boolean} isDark 
+     * @param {boolean} isDark
      */
     applyTheme(isDark) {
         document.body.classList.toggle('dark-theme', isDark);
@@ -82,6 +82,15 @@ const ThemeManager = {
      * Initializes event listeners for theme toggle buttons.
      */
     initToggleListeners() {
+        // Auto-sync with system dark mode changes when no explicit preference is stored
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!localStorage.getItem(this.KEY)) {
+                    this.applyTheme(e.matches);
+                }
+            });
+        }
+
         // Use event delegation on body to handle dynamically rendered toggles
         document.body.addEventListener('click', (e) => {
             const toggleBtn = e.target.closest('.theme-toggle');
