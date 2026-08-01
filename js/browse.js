@@ -229,6 +229,7 @@ const backToTopBtn = document.getElementById("back-to-top");
 
 // Initialize App
 document.addEventListener("DOMContentLoaded", () => {
+    seedStoriesToStorage();
     renderSkeletonLoaders();
     setTimeout(() => {
         renderStories();
@@ -236,6 +237,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setupEventListeners();
 });
+
+function seedStoriesToStorage() {
+    const existingStories = JSON.parse(localStorage.getItem('local_stories') || '[]');
+    if (!existingStories.length) {
+        localStorage.setItem('local_stories', JSON.stringify(stories));
+    }
+}
 
 // Render Skeleton Loaders
 function renderSkeletonLoaders() {
@@ -352,6 +360,11 @@ function renderStories() {
                 </div>
             </div>
         `;
+
+        card.addEventListener("click", (event) => {
+            if (event.target.closest("button, a")) return;
+            window.location.href = `story-player.html?id=${story.id}`;
+        });
 
         storiesGrid.appendChild(card);
     });

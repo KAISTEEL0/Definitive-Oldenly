@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Player - Oldenly</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/browse.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff8fd 0%, #fdf2f8 100%);
+        }
+        .story-player-shell {
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+        .story-player-card {
+            border-radius: 30px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.7);
+            box-shadow: 0 20px 45px rgba(108,99,253,0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .story-player-hero {
+            position: relative;
+            min-height: 280px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+        .story-player-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+        }
+        .story-player-hero__content {
+            position: relative;
+            z-index: 1;
+            padding: 32px;
+            color: #fff;
+        }
+        .story-player-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        .story-player-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .story-player-subtitle {
+            margin: 0;
+            max-width: 720px;
+            color: rgba(255,255,255,0.95);
+        }
+        .story-player-body {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            padding: 24px;
+        }
+        .story-player-panel {
+            padding: 20px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(108,99,253,0.12);
+        }
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .player-topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .audio-player {
+            width: 100%;
+            margin-top: 6px;
+        }
+        .player-progress-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .player-progress-row input {
+            flex: 1;
+            accent-color: #ff5ea8;
+        }
+        .player-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .action-pill {
+            border: none;
+            border-radius: 999px;
+            padding: 10px 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(108,99,253,0.1);
+            color: #6c63ff;
+        }
+        .action-pill.primary {
+            background: linear-gradient(135deg, #ff5ea8, #6c63ff);
+            color: #fff;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .meta-item {
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(108,99,253,0.08);
+        }
+        .meta-item strong {
+            display: block;
+            font-size: 0.78rem;
+            color: #6b7280;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .story-transcript {
+            margin-top: 16px;
+            padding: 16px 8px 8px 0;
+            border-top: 1px solid rgba(108,99,253,0.14);
+            color: #374151;
+            line-height: 1.8;
+            max-height: 320px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+        }
+        .transcript-line {
+            padding: 8px 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.25s ease;
+            color: #4b5563;
+            scroll-margin-block: 12px;
+        }
+        .transcript-line.past {
+            background: rgba(108, 99, 253, 0.08);
+            color: #4c1d95;
+            opacity: 0.8;
+        }
+        .transcript-line.current {
+            background: linear-gradient(135deg, rgba(255, 94, 168, 0.18), rgba(108, 99, 253, 0.15));
+            color: #111827;
+            font-weight: 700;
+            transform: translateX(3px);
+        }
+        .transcript-line.future {
+            opacity: 0.7;
+        }
+        .story-author-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(108,99,253,0.14);
+        }
+        .story-author-card img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        @media (max-width: 900px) {
+            .story-player-body {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .story-player-hero__content {
+                padding: 24px;
+            }
+            .story-player-title {
+                font-size: 1.55rem;
+            }
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header site-header--home">
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav__left">
+                <a href="index.html" class="nav__brand">
+                    <img class="nav__logo" src="https://z-cdn-media.chatglm.cn/files/9870feec-49e7-4e46-a5d9-dd51aa2c1c44.png?auth_key=1881144779-4a1a777672674cf48df3bb8cfc2347da-0-375f282fa162657122442a64536a374c" alt="Oldenly Logo">
+                    <span class="nav__name">Oldenly</span>
+                </a>
+            </div>
+            <div class="nav__right">
+                <a href="browse.html" class="nav__signin">Back to stories</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="story-player-shell">
+        <section class="story-player-card">
+            <div id="player-hero" class="story-player-hero">
+                <div class="story-player-hero__content">
+                    <div id="player-badge" class="story-player-badge">🎙️ Selected story</div>
+                    <h1 id="player-title" class="story-player-title">Loading story...</h1>
+                    <p id="player-description" class="story-player-subtitle">The information will appear here automatically.</p>
+                </div>
+            </div>
+            <div class="story-player-body">
+                <div class="story-player-panel">
+                    <div class="player-controls">
+                        <div class="player-topline">
+                            <strong id="player-track-name">Playback</strong>
+                            <span id="player-author-label" class="story-player-badge">Author to be defined</span>
+                        </div>
+                        <audio id="story-audio" class="audio-player" controls preload="metadata"></audio>
+                        <div class="player-actions">
+                            <button type="button" id="play-btn" class="action-pill primary">▶ Play</button>
+                            <button type="button" id="pause-btn" class="action-pill">⏸ Pause</button>
+                            <button type="button" id="edit-story-btn" class="action-pill" style="display: none;">✏️ Edit Story</button>
+                        </div>
+                        <div class="player-progress-row">
+                            <span id="current-time">00:00</span>
+                            <input id="seek-bar" type="range" min="0" max="100" value="0">
+                            <span id="duration-time">00:00</span>
+                        </div>
+                    </div>
+                    <div class="story-transcript" id="story-transcript"></div>
+                </div>
+                <aside class="story-player-panel">
+                    <h3 style="margin-top:0;">Story details</h3>
+                    <div class="meta-grid">
+                        <div class="meta-item"><strong>Category</strong><span id="meta-category">—</span></div>
+                        <div class="meta-item"><strong>Duration</strong><span id="meta-duration">—</span></div>
+                        <div class="meta-item"><strong>Date</strong><span id="meta-date">—</span></div>
+                        <div class="meta-item"><strong>Tags</strong><span id="meta-tags">—</span></div>
+                    </div>
+                    <div class="story-author-card">
+                        <img id="author-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150" alt="Author">
+                        <div>
+                            <strong id="author-name">Author</strong>
+                            <div id="author-role" style="color:#6b7280;">Narrator / creator of the story</div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/helpers.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/effects.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const storyId = Number(params.get('id'));
+            const storedStories = JSON.parse(localStorage.getItem('local_stories') || '[]');
+            const story = storedStories.find(item => item.id === storyId);
+            const audio = document.getElementById('story-audio');
+            const hero = document.getElementById('player-hero');
+            const title = document.getElementById('player-title');
+            const description = document.getElementById('player-description');
+            const trackName = document.getElementById('player-track-name');
+            const authorLabel = document.getElementById('player-author-label');
+            const badge = document.getElementById('player-badge');
+            const transcriptContainer = document.getElementById('story-transcript');
+            const editStoryBtn = document.getElementById('edit-story-btn');
+            const metaCategory = document.getElementById('meta-category');
+            const metaDuration = document.getElementById('meta-duration');
+            const metaDate = document.getElementById('meta-date');
+            const metaTags = document.getElementById('meta-tags');
+            const authorAvatar = document.getElementById('author-avatar');
+            const authorName = document.getElementById('author-name');
+            const authorRole = document.getElementById('author-role');
+            const currentTime = document.getElementById('current-time');
+            const durationTime = document.getElementById('duration-time');
+            const seekBar = document.getElementById('seek-bar');
+            const playBtn = document.getElementById('play-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            let lastActiveIndex = -1;
+            const currentUser = JSON.parse(localStorage.getItem('oldenly-user') || 'null');
+
+            if (!story) {
+                title.textContent = 'Story not found';
+                description.textContent = 'Please return to the story list and select another story.';
+                return;
+            }
+
+            title.textContent = story.titulo;
+            description.textContent = story.descripcion;
+            trackName.textContent = story.titulo;
+            badge.textContent = `🎙️ ${story.categoria || 'Story'}`;
+            authorLabel.textContent = story.autor || 'Author to be defined';
+            metaCategory.textContent = story.categoria || '—';
+            metaDuration.textContent = story.tiempo || story.duracion || '—';
+            metaDate.textContent = story.fecha || '—';
+            metaTags.textContent = (story.etiquetas || []).join(', ') || '—';
+            authorName.textContent = story.autor || 'Author to be defined';
+            authorRole.textContent = story.autor ? 'Narrator / creator of the story' : 'Please sign in before publishing stories';
+            authorAvatar.src = story.avatar || story.imagen || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150';
+            hero.style.backgroundImage = `url('${story.imagen || 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1600&auto=format&fit=crop'}')`;
+            if (story.audioUrl) {
+                audio.src = story.audioUrl;
+            }
+
+            if (isStoryOwner(story, currentUser)) {
+                editStoryBtn.style.display = 'inline-flex';
+            }
+
+            const transcriptEntries = buildTranscriptEntries(story);
+            renderTranscript(transcriptEntries);
+
+            editStoryBtn.addEventListener('click', () => {
+                window.location.href = `upload.html?edit=${story.id}`;
+            });
+
+            playBtn.addEventListener('click', () => audio.play());
+            pauseBtn.addEventListener('click', () => audio.pause());
+            audio.addEventListener('timeupdate', () => {
+                if (!audio.duration) return;
+                seekBar.value = (audio.currentTime / audio.duration) * 100;
+                currentTime.textContent = formatTime(audio.currentTime);
+                durationTime.textContent = formatTime(audio.duration);
+                highlightTranscript(audio.currentTime, transcriptEntries);
+            });
+            audio.addEventListener('loadedmetadata', () => {
+                durationTime.textContent = formatTime(audio.duration);
+            });
+            seekBar.addEventListener('input', () => {
+                if (!audio.duration) return;
+                audio.currentTime = (seekBar.value / 100) * audio.duration;
+            });
+            function buildTranscriptEntries(storyData) {
+                if (Array.isArray(storyData.timestamps) && storyData.timestamps.length) {
+                    return storyData.timestamps.map((entry) => ({
+                        start: entry.start || '00:00.000',
+                        end: entry.end || '00:10.000',
+                        text: entry.text || ''
+                    })).filter(entry => entry.text);
+                }
+
+                const rawText = (storyData.transcripcion || '').trim();
+                if (!rawText) {
+                    return [{ start: '00:00.000', end: '00:10.000', text: 'No transcript available yet.' }];
+                }
+
+                const timestampPattern = /\[(\d{1,2}):(\d{2})(?::(\d{2}))?\]\s*(.*)/g;
+                const matches = Array.from(rawText.matchAll(timestampPattern));
+                if (matches.length) {
+                    return matches.map((match) => ({
+                        start: formatTimestampValue(toSeconds(match[1], match[2], match[3])),
+                        end: formatTimestampValue(toSeconds(match[1], match[2], match[3]) + 10),
+                        text: match[4].trim()
+                    })).filter(entry => entry.text);
+                }
+
+                const lines = rawText.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+                if (lines.length > 1) {
+                    return lines.map((text, index) => ({
+                        start: formatTimestampValue(index * 10),
+                        end: formatTimestampValue((index + 1) * 10),
+                        text
+                    }));
+                }
+
+                return [{ start: '00:00.000', end: '00:10.000', text: rawText }];
+            }
+
+            function renderTranscript(entries) {
+                transcriptContainer.innerHTML = '';
+                entries.forEach((entry) => {
+                    const div = document.createElement('div');
+                    div.className = 'transcript-line future';
+                    div.textContent = entry.text;
+                    transcriptContainer.appendChild(div);
+                });
+            }
+
+            function highlightTranscript(currentTimeValue, entries) {
+                const lines = transcriptContainer.querySelectorAll('.transcript-line');
+                if (!lines.length) return;
+
+                const currentSeconds = Number(currentTimeValue || 0);
+                let activeIndex = 0;
+
+                if (entries.some((entry) => entry.start && entry.end)) {
+                    activeIndex = entries.findIndex((entry) => {
+                        const start = parseTimestamp(entry.start);
+                        const end = parseTimestamp(entry.end);
+                        return currentSeconds >= start && currentSeconds < end;
+                    });
+                }
+
+                if (activeIndex < 0) {
+                    activeIndex = 0;
+                }
+
+                if (activeIndex === lastActiveIndex) return;
+                lastActiveIndex = activeIndex;
+
+                lines.forEach((line, index) => {
+                    line.classList.remove('past', 'current', 'future');
+                    if (index < activeIndex) {
+                        line.classList.add('past');
+                    } else if (index === activeIndex) {
+                        line.classList.add('current');
+                    } else {
+                        line.classList.add('future');
+                    }
+                });
+            }
+
+            function isStoryOwner(storyData, userData) {
+                if (!userData) return false;
+                return storyData.authorEmail && storyData.authorEmail === userData.email ||
+                    storyData.autor === userData.username ||
+                    storyData.autor === userData.firstName;
+            }
+
+            function parseTimestamp(value) {
+                const match = String(value || '').match(/^(\d+):(\d{2})(?:\.(\d{1,3}))?$/);
+                if (!match) return 0;
+                const mins = Number(match[1]);
+                const secs = Number(match[2]);
+                const millis = Number(match[3] || 0);
+                return mins * 60 + secs + millis / 1000;
+            }
+
+            function toSeconds(minutes, seconds, hours) {
+                const mins = Number(minutes || 0);
+                const secs = Number(seconds || 0);
+                const hrs = Number(hours || 0);
+                return hrs * 3600 + mins * 60 + secs;
+            }
+
+            function formatTimestampValue(value) {
+                const totalSeconds = Math.max(0, Number(value || 0));
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = Math.floor(totalSeconds % 60);
+                const millis = Math.round((totalSeconds - Math.floor(totalSeconds)) * 1000);
+                return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${String(millis).padStart(3, '0')}`;
+            }
+
+            function formatTime(value) {
+                if (!value || Number.isNaN(value)) return '00:00';
+                const mins = Math.floor(value / 60);
+                const secs = Math.floor(value % 60).toString().padStart(2, '0');
+                return `${mins}:${secs}`;
+            }
+        });
+    </script>
+</body>
+</html>

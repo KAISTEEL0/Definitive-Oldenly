@@ -111,6 +111,14 @@
             transition: border-color 0.3s ease, background-color 0.3s ease;
         }
 
+        .audio-upload-wrapper {
+            position: relative;
+            border: 2px dashed #eaeaea;
+            border-radius: 12px;
+            padding: 24px;
+            background: rgba(108, 99, 253, 0.03);
+        }
+
         .image-upload-wrapper:hover {
             border-color: #ff5ea8;
             background-color: rgba(255, 94, 168, 0.02);
@@ -201,6 +209,67 @@
             color: #065f46;
             border: 1px solid #6ee7b7;
         }
+
+        .timestamp-editor-panel {
+            margin-top: 8px;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(108,99,253,0.05);
+            border: 1px solid rgba(108,99,253,0.12);
+        }
+
+        .timestamp-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .timestamp-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.75);
+            border: 1px solid rgba(108,99,253,0.12);
+            margin-bottom: 8px;
+        }
+
+        .timestamp-row__time {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 110px;
+        }
+
+        .timestamp-row__time strong {
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
+
+        .timestamp-row__buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .timestamp-row__buttons button {
+            border: none;
+            border-radius: 999px;
+            padding: 6px 10px;
+            background: rgba(108,99,253,0.1);
+            color: #6c63ff;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .timestamp-row__text {
+            flex: 1;
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -254,8 +323,8 @@
         <section class="upload-section" id="upload-section">
             <div class="upload-container">
                 <div class="upload-card">
-                    <h2 class="upload-card__title">New Story</h2>
-                    <p class="upload-card__subtitle">Complete the fields below to publish your story.</p>
+                    <h2 class="upload-card__title" id="form-title">New Story</h2>
+                    <p class="upload-card__subtitle" id="form-subtitle">Complete the fields below to publish your story.</p>
 
                     <div id="message-box" class="message-box" style="display: none;"></div>
 
@@ -301,9 +370,39 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Cover Image *</label>
+                            <label for="transcript" class="form-label">Transcript *</label>
+                            <textarea id="transcript" class="form-textarea" rows="6" placeholder="Write the transcript or add timestamps like [00:00:12] ..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Transcript timing</label>
+                            <div class="timestamp-editor-panel">
+                                <p class="form-hint" style="margin-top:0; margin-bottom:10px;">The app will create the timing automatically from the audio you upload and the transcript you write. You can still move any part earlier or later with one click.</p>
+                                <div class="timestamp-actions">
+                                    <button type="button" id="generate-timestamps-btn" class="btn btn--filled" style="padding: 8px 16px; font-size: 0.9rem;">Create timing</button>
+                                    <button type="button" id="reset-timestamps-btn" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">Reset</button>
+                                </div>
+                                <div id="timestamp-editor"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Audio File *</label>
+                            <div class="audio-upload-wrapper">
+                                <input type="file" id="audioFile" accept="audio/*" class="image-upload-input" required>
+                                <div class="image-upload-trigger">
+                                    <span class="upload-icon">🎧</span>
+                                    <span class="upload-text">Upload the audio file</span>
+                                    <span class="upload-hint">MP3, WAV, M4A and other common audio formats are supported.</span>
+                                </div>
+                                <div id="audio-file-name" style="margin-top: 12px; font-weight: 600; color: #6c63ff;"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Cover Image (optional)</label>
                             <div class="image-upload-wrapper">
-                                <input type="file" id="coverImage" accept="image/png, image/jpeg, image/jpg, image/webp" class="image-upload-input" required>
+                                <input type="file" id="coverImage" accept="image/png, image/jpeg, image/jpg, image/webp" class="image-upload-input">
                                 <div class="image-upload-trigger" id="image-trigger">
                                     <span class="upload-icon">📸</span>
                                     <span class="upload-text">Click to upload an image</span>
@@ -398,20 +497,156 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById("upload-form");
+            const formTitle = document.getElementById("form-title");
+            const formSubtitle = document.getElementById("form-subtitle");
             const contentInput = document.getElementById("content");
             const charCounter = document.getElementById("char-counter");
+            const transcriptInput = document.getElementById("transcript");
             const coverImageInput = document.getElementById("coverImage");
+            const audioFileInput = document.getElementById("audioFile");
             const imageTrigger = document.getElementById("image-trigger");
             const previewContainer = document.getElementById("preview-container");
             const imagePreview = document.getElementById("image-preview");
             const removePreviewBtn = document.getElementById("remove-preview");
             const messageBox = document.getElementById("message-box");
+            const audioFileName = document.getElementById("audio-file-name");
+            const submitBtn = document.getElementById("submit-btn");
+            const timestampEditor = document.getElementById("timestamp-editor");
+            const generateTimestampsBtn = document.getElementById("generate-timestamps-btn");
+            const resetTimestampsBtn = document.getElementById("reset-timestamps-btn");
+            let audioDurationSeconds = null;
+            const params = new URLSearchParams(window.location.search);
+            const editStoryId = Number(params.get("edit"));
+            const isEditing = !Number.isNaN(editStoryId) && editStoryId > 0;
+            const currentUser = JSON.parse(localStorage.getItem('oldenly-user') || 'null');
+            const localStories = JSON.parse(localStorage.getItem('local_stories') || '[]');
+            const storyToEdit = isEditing ? localStories.find(story => story.id === editStoryId) : null;
+
+            if (isEditing) {
+                formTitle.textContent = 'Edit Story';
+                formSubtitle.textContent = 'Update your story details below.';
+                submitBtn.textContent = 'Save Changes';
+                audioFileInput.required = false;
+            }
+
+            if (storyToEdit) {
+                if (!isStoryOwner(storyToEdit, currentUser)) {
+                    showMessage('You can only edit your own stories.', 'error');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Not allowed';
+                } else {
+                    document.getElementById('title').value = storyToEdit.titulo || '';
+                    document.getElementById('category').value = storyToEdit.categoria || '';
+                    document.getElementById('readingTime').value = storyToEdit.tiempo || storyToEdit.duracion || '';
+                    document.getElementById('description').value = storyToEdit.descripcion || '';
+                    contentInput.value = storyToEdit.historiaCompleta || storyToEdit.content || '';
+                    transcriptInput.value = storyToEdit.transcripcion || '';
+                    document.getElementById('tags').value = (storyToEdit.etiquetas || []).join(', ');
+                    if (storyToEdit.imagen) {
+                        imagePreview.src = storyToEdit.imagen;
+                        imageTrigger.style.display = 'none';
+                        previewContainer.style.display = 'flex';
+                    }
+                    if (storyToEdit.audioUrl) {
+                        audioFileName.textContent = 'Existing audio will be kept unless you choose a new file.';
+                    }
+                    charCounter.textContent = `${contentInput.value.length} / 500 minimum characters`;
+                    charCounter.style.color = contentInput.value.length >= 500 ? '#10b981' : '#6b7280';
+                }
+            }
+
+            let timestampEntries = [];
+
+            function renderTimestampEditor(entries) {
+                timestampEntries = entries.filter((entry) => entry.text);
+                if (!timestampEntries.length) {
+                    timestampEntries = [{ start: '00:00.000', end: '00:10.000', text: 'Add text to the transcript to create timing.' }];
+                }
+
+                timestampEditor.innerHTML = '';
+                timestampEntries.forEach((entry, index) => {
+                    const row = document.createElement('div');
+                    row.className = 'timestamp-row';
+                    row.innerHTML = `
+                        <div class="timestamp-row__time">
+                            <strong>${entry.start || '00:00.000'}</strong>
+                            <div class="timestamp-row__buttons">
+                                <button type="button" data-action="earlier" data-index="${index}">← Earlier</button>
+                                <button type="button" data-action="later" data-index="${index}">Later →</button>
+                            </div>
+                        </div>
+                        <div class="timestamp-row__text">${entry.text || ''}</div>
+                    `;
+                    timestampEditor.appendChild(row);
+                });
+            }
+
+            function updateTimestampEntry(index, delta) {
+                const entry = timestampEntries[index];
+                if (!entry) return;
+                const startSeconds = parseTimestamp(entry.start) + delta;
+                const endSeconds = parseTimestamp(entry.end) + delta;
+                entry.start = formatTimestamp(startSeconds);
+                entry.end = formatTimestamp(endSeconds);
+                renderTimestampEditor(timestampEntries);
+            }
+
+            timestampEditor.addEventListener('click', (event) => {
+                const button = event.target.closest('button[data-action]');
+                if (!button) return;
+                const index = Number(button.dataset.index || 0);
+                if (button.dataset.action === 'earlier') {
+                    updateTimestampEntry(index, -5);
+                } else if (button.dataset.action === 'later') {
+                    updateTimestampEntry(index, 5);
+                }
+            });
+
+            generateTimestampsBtn.addEventListener('click', () => {
+                timestampEntries = buildTimestamps(transcriptInput.value || '', audioDurationSeconds);
+                renderTimestampEditor(timestampEntries);
+            });
+
+            resetTimestampsBtn.addEventListener('click', () => {
+                timestampEntries = buildTimestamps(transcriptInput.value || '', audioDurationSeconds);
+                renderTimestampEditor(timestampEntries);
+            });
+
+            transcriptInput.addEventListener('input', () => {
+                if (transcriptInput.value.trim()) {
+                    timestampEntries = buildTimestamps(transcriptInput.value, audioDurationSeconds);
+                    renderTimestampEditor(timestampEntries);
+                }
+            });
+
+            const initialTimestamps = buildTimestamps(transcriptInput.value || '', audioDurationSeconds);
+            if (storyToEdit?.timestamps?.length) {
+                renderTimestampEditor(storyToEdit.timestamps);
+            } else {
+                renderTimestampEditor(initialTimestamps);
+            }
 
             // Character Counter
             contentInput.addEventListener("input", () => {
                 const count = contentInput.value.length;
-                charCounter.textContent = `${count} / 500 caracteres mínimos`;
+                charCounter.textContent = `${count} / 500 minimum characters`;
                 charCounter.style.color = count >= 500 ? "#10b981" : "#6b7280";
+            });
+
+            audioFileInput.addEventListener("change", async () => {
+                const file = audioFileInput.files?.[0];
+                audioFileName.textContent = file ? `Selected audio: ${file.name}` : '';
+                if (!file) return;
+
+                try {
+                    audioDurationSeconds = await getAudioDuration(file);
+                    if (transcriptInput.value.trim()) {
+                        timestampEntries = buildTimestamps(transcriptInput.value, audioDurationSeconds);
+                        renderTimestampEditor(timestampEntries);
+                    }
+                } catch (error) {
+                    audioDurationSeconds = null;
+                }
             });
 
             // Image Preview
@@ -419,7 +654,7 @@
                 const file = e.target.files[0];
                 if (file) {
                     if (file.size > 5 * 1024 * 1024) {
-                        showMessage('La imagen supera el límite de 5MB.', 'error');
+                        showMessage('The image exceeds the 5MB limit.', 'error');
                         coverImageInput.value = '';
                         return;
                     }
@@ -441,52 +676,153 @@
             });
 
             // Form Submit (Local Storage Persistence)
-            form.addEventListener("submit", (e) => {
+            form.addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const title = document.getElementById("title").value.trim();
                 const content = contentInput.value.trim();
+                const transcript = transcriptInput.value.trim();
                 const category = document.getElementById("category").value;
                 const readingTime = document.getElementById("readingTime").value.trim();
                 const description = document.getElementById("description").value.trim();
 
+                if (!currentUser) {
+                    showMessage('You must sign in before publishing a story.', 'error');
+                    return;
+                }
+
                 if (title.length < 20) {
-                    showMessage('El título debe tener al menos 20 caracteres.', 'error');
+                    showMessage('The title must be at least 20 characters long.', 'error');
                     return;
                 }
                 if (content.length < 500) {
-                    showMessage('La historia completa debe tener al menos 500 caracteres.', 'error');
+                    showMessage('The full story must be at least 500 characters long.', 'error');
+                    return;
+                }
+                let audioUrl = storyToEdit?.audioUrl || '';
+                if (audioFileInput.files?.[0]) {
+                    audioUrl = await readFileAsDataUrl(audioFileInput.files[0]);
+                } else if (!isEditing && !audioFileInput.files?.[0]) {
+                    showMessage('Please upload an audio file.', 'error');
                     return;
                 }
 
-                // Save to LocalStorage
-                const localStories = JSON.parse(localStorage.getItem('local_stories') || '[]');
-                const newStory = {
-                    id: Date.now(),
+                const coverImageUrl = imagePreview.src || storyToEdit?.imagen || "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600";
+                const authorName = currentUser.username || currentUser.firstName || 'Authenticated user';
+                const timestamps = timestampEntries.filter((entry) => entry.text);
+                const storyPayload = {
+                    id: isEditing && storyToEdit ? storyToEdit.id : Date.now(),
                     titulo: title,
-                    autor: "Usuario Local",
-                    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150",
+                    autor: authorName,
+                    avatar: currentUser.avatar || storyToEdit?.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150",
                     categoria: category,
-                    imagen: imagePreview.src || "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600",
+                    imagen: coverImageUrl,
                     descripcion: description,
-                    likes: 0,
-                    comentarios: 0,
-                    lecturas: 10,
+                    historiaCompleta: content,
+                    transcripcion: transcript,
+                    likes: storyToEdit?.likes || 0,
+                    comentarios: storyToEdit?.comentarios || 0,
+                    lecturas: storyToEdit?.lecturas || 10,
                     tiempo: readingTime,
-                    fecha: new Date().toISOString().split('T')[0]
+                    fecha: storyToEdit?.fecha || new Date().toISOString().split('T')[0],
+                    etiquetas: (document.getElementById('tags').value || '').split(',').map(tag => tag.trim()).filter(Boolean),
+                    audioUrl,
+                    duracion: readingTime,
+                    authorEmail: currentUser.email || storyToEdit?.authorEmail || '',
+                    timestamps
                 };
 
-                localStories.push(newStory);
+                const storyIndex = localStories.findIndex(story => story.id === storyPayload.id);
+                if (isEditing && storyIndex >= 0) {
+                    localStories[storyIndex] = { ...localStories[storyIndex], ...storyPayload };
+                } else {
+                    localStories.push(storyPayload);
+                }
                 localStorage.setItem('local_stories', JSON.stringify(localStories));
 
-                showMessage('¡Historia publicada con éxito! Redirigiendo a Explore our stories...', 'success');
+                showMessage(isEditing ? 'Story updated successfully! Redirecting...' : 'Story published successfully! Redirecting to the story list...', 'success');
                 form.reset();
                 previewContainer.style.display = "none";
                 imageTrigger.style.display = "flex";
+                audioFileName.textContent = '';
 
                 setTimeout(() => {
-                    window.location.href = 'browse.html';
+                    window.location.href = isEditing ? `story-player.html?id=${storyPayload.id}` : 'browse.html';
                 }, 2000);
             });
+
+            function readFileAsDataUrl(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(reader.error);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function buildTimestamps(transcriptText, durationSeconds) {
+                const normalized = (transcriptText || '').trim();
+                if (!normalized) {
+                    return [{ start: '00:00.000', end: '00:10.000', text: 'No transcript available yet.' }];
+                }
+
+                const lines = normalized.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+                const sentenceChunks = normalized
+                    .split(/(?<=[.!?])\s+/)
+                    .map((sentence) => sentence.trim())
+                    .filter(Boolean);
+                const chunks = lines.length > 1 ? lines : (sentenceChunks.length > 1 ? sentenceChunks : [normalized]);
+                if (!chunks.length) {
+                    return [{ start: '00:00.000', end: '00:10.000', text: normalized }];
+                }
+
+                const safeDuration = Number(durationSeconds) > 0 ? Number(durationSeconds) : 180;
+                const segmentDuration = safeDuration / chunks.length;
+                return chunks.map((text, index) => ({
+                    start: formatTimestamp(index * segmentDuration),
+                    end: formatTimestamp(Math.min(safeDuration, (index + 1) * segmentDuration)),
+                    text
+                }));
+            }
+
+            function parseTimestamp(value) {
+                const match = String(value || '').match(/^(\d+):(\d{2})(?:\.(\d{1,3}))?$/);
+                if (!match) return 0;
+                const mins = Number(match[1]);
+                const secs = Number(match[2]);
+                const millis = Number(match[3] || 0);
+                return mins * 60 + secs + millis / 1000;
+            }
+
+            function formatTimestamp(value) {
+                const totalSeconds = Math.max(0, Number(value || 0));
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = Math.floor(totalSeconds % 60);
+                const millis = Math.round((totalSeconds - Math.floor(totalSeconds)) * 1000);
+                return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${String(millis).padStart(3, '0')}`;
+            }
+
+            function getAudioDuration(file) {
+                return new Promise((resolve, reject) => {
+                    const audioUrl = URL.createObjectURL(file);
+                    const audio = new Audio(audioUrl);
+                    audio.addEventListener('loadedmetadata', () => {
+                        resolve(audio.duration || 0);
+                        URL.revokeObjectURL(audioUrl);
+                    });
+                    audio.addEventListener('error', () => {
+                        reject(new Error('Could not read audio duration'));
+                        URL.revokeObjectURL(audioUrl);
+                    });
+                    audio.load();
+                });
+            }
+
+            function isStoryOwner(storyData, userData) {
+                if (!userData) return false;
+                return storyData.authorEmail && storyData.authorEmail === userData.email ||
+                    storyData.autor === userData.username ||
+                    storyData.autor === userData.firstName;
+            }
 
             function showMessage(text, type) {
                 messageBox.textContent = text;
