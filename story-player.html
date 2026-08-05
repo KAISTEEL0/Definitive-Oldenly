@@ -11,6 +11,29 @@
         body {
             background: linear-gradient(135deg, #fff8fd 0%, #fdf2f8 100%);
         }
+        body.dark-theme {
+            background: var(--bg-body);
+        }
+        body.dark-theme .story-player-card {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+        }
+        body.dark-theme .story-player-panel {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.12);
+        }
+        body.dark-theme .story-player-title,
+        body.dark-theme .story-player-subtitle,
+        body.dark-theme .story-player-badge,
+        body.dark-theme .meta-item,
+        body.dark-theme .story-transcript,
+        body.dark-theme .transcript-line,
+        body.dark-theme .story-author-card {
+            color: var(--text-main);
+        }
+        body.dark-theme .story-player-hero::before {
+            background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+        }
         .story-player-shell {
             max-width: 1200px;
             margin: 40px auto 80px;
